@@ -26,41 +26,57 @@ body, div, a {
     overflow: auto;
 }
 
+#calculator a {
+  display: block;
+  float: left;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  background: -moz-linear-gradient(top, #EDEDED, #DCDCDC);
+  background: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#DCDCDC));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#EDEDED', endColorstr='#DCDCDC');
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -khtml-border-radius: 10px;
+    border-radius: 10px;
+    color: black;
+}
+
 #numbers, #operators {
   margin: auto; 
 }
 
-a {
-  cursor: pointer;     
-}
 #operators a {
-  display: block;
-  width: 45px;
-  height: 45px;
-  float: left;
-  text-decoration: none;
-  color: black;
-  text-align: center;
+  width: 46px;
+  height: 46px;
   font-size: 39px;
   padding: 2px;
   margin: 5px 6px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#DCDCDC));
-  background: -moz-linear-gradient(top, #EDEDED, #DCDCDC);
-  border-radius: 10px;
 }
 
 #numbers a {
-  display: block;
   width: 50px;
   height: 50px;
-  float: left;
-  text-decoration: none;
-  color: black;
-  text-align: center;
-  font-size: 32pt;
+  font-size: 32px;
   padding: 10px;
-  margin: 5px 15px;
-  background: -webkit-gradient(linear, left top, left bottom, from(#EDEDED), to(#DCDCDC));
-  background: -moz-linear-gradient(top, #EDEDED, #DCDCDC);
-  border-radius: 10px;
+  margin: 5px;
+}
+
+#side {
+    width: 49px;
+    float: right;
+}
+
+#side a {
+    width: 40px;
+    height: 40px;
+    float: right;
+    font-size: 32px;
+    padding: 10px;
+    margin: 5px;
+}
+
+a#equals {
+    padding-top: 50px;
+    height: 100px;
 }

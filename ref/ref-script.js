@@ -17,10 +17,12 @@ $(document).ready(function(){
     var totaldiv = $("#total");
     var numbersButtons = $('#numbers').find('a');
     var operatorsButtons = $('#operators').find('a');
+    var sideOperatorsButtons = $('#side').find('a');
     var clearButton = $('#clear');
     var clearAllButton = $('#clearall');
     var equalsButton = $('#equals');
-
+    var decimalButton = $('#decimal');
+    console.log(sideOperatorsButtons);
     //set the default value of the Total field to 0
     totaldiv.text("0");
 
@@ -35,13 +37,20 @@ $(document).ready(function(){
     });
 
     //click on operators
-    $(operatorsButtons).not('#equals').on('click', function(e){
-        //change the 'newnumber' string to the operator text
-        operator = $(this).text();
-        //assign the current 'number' value to 'newnumber'
-        newnumber = number;
-        //clear the current value of 'number'
-        number = "";
+    operatorsButtons.add(sideOperatorsButtons).not('#equals, #decimal').on('click', function(e){
+        //if the operator is square root, run the click event on "=" as it doesn't need the second number
+        if (this.id === "sqrt" ) {
+            $('#equals').click();
+            return;
+        } else {
+            //change the 'newnumber' string to the operator text
+            operator = $(this).text();
+            //assign the current 'number' value to 'newnumber'
+            newnumber = number;
+            //clear the current value of 'number'
+            number = "";
+        }
+        
     });
 
      //clear button (C) functionality
@@ -70,12 +79,12 @@ $(document).ready(function(){
 
         //round off the result
         if (isFloat(result)) {
-         result = result.toFixed(15);
+         result = parseFloat(result.toFixed(14));
         }
 
         $(totaldiv).text(result);
         testNumLength(result);
-        number = result.toString();
+        number = "";
         newnumber = "";
     });
     
