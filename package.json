@@ -1,0 +1,23 @@
+{
+  "name": "drag_drop_calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TWasilonek/DragDropCalculator.git"
+  },
+  "author": "Tomasz Wasilonek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TWasilonek/DragDropCalculator/issues"
+  },
+  "homepage": "https://github.com/TWasilonek/DragDropCalculator#readme",
+  "devDependencies": {
+    "gulp-jshint": "^2.0.0",
+    "jshint": "^2.9.1"
+  }
+}
