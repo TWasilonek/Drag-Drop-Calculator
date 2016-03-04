@@ -1,0 +1,49 @@
+#GLOBAL#
+####################
+PC max width: 1200px
+TABLET landscape threshold
+TABLET portrait treshold
+MOBILE landscape threshold
+MOBILE portrait treshold
+
+#MINIMAL#
+####################
+#Fonts#
+Header: Roboto Medium 32px, 80 PS letter spacing, uppercase
+Text: Lato Regular 18px
+Nav: Lato Regular 20px
+Numbers and operators:  Lato Regular 24px
+Display input: Lato Regular 24px
+Sidebar: operands and operators: Lato Regular 18px
+	  result and equals: Laro Black 18px
+
+#Colors#
+Color palette - http://pltts.me/palettes/27905
+ -dark blue #1B325F
+ -light blue #9CC4E4
+ -very light blue #E9F2F9
+ -vibrant blue #3A89C9
+ -orange #F26C4F 
+
+Header: Dark blue
+Nav: #949494
+hover, active Nav element: vibrant blue
+Text Main: #949494
+Display input and Sidebar BG: #f7f7f7
+Display input color: vibrant blue
+Hover sidebar memory rectangle: bg-very light blue, border-light blue
+Active sidebar memory value: Vibrant blue
+Numbers: #949494
+Operators: #949494
+AC and C: Orange
+
+#FUTURISIC#
+####################
+
+
+#VINTAGE#
+####################
+
+
+#DRAWING#
+####################
