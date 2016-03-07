@@ -1,0 +1,129 @@
+/* ------ IMPORTS ------ */
+  @import "partials/reset";
+
+/* ------ VARIABLES ------ */
+$columnWidth: 100%/12;
+// $headerColor: #1B325F;
+$draggableBorderColor: #9CC4E4;
+$draggableBgColor: #E9F2F9;
+$mainColor: #3A89C9;
+$accentColor: #F26C4F;
+$inputBgColor: #f7f7f7;
+$textColor: #949494;
+
+/* ------ MIXINS ------ */
+@mixin boxShadow($horizontal, $vertical, $blur, $spread, $rgbaColor) {
+  -webkit-box-shadow: $horizontal $vertical $blur $spread $rgbaColor;
+  -moz-box-shadow: $horizontal $vertical $blur $spread $rgbaColor;
+  box-shadow: $horizontal $vertical $blur $spread $rgbaColor;
+}
+
+/* ------ GRID ------ */
+.grid-container {
+   width: 100%;
+   max-width: 900px;
+   margin: 0 auto;
+   box-sizing: border-box;
+   border: 1px dashed green;
+}
+
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+//creates 12 column classes with the width computed (columnWidth * columnNumber)
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: $columnWidth * $i;
+  }
+}
+
+[class*='col-']{
+  border: 1px dotted red;
+  float: left;
+  min-height:1px;
+  padding: 10px;
+}
+
+/* ------ MEDIA QUERIES ------ */
+  @media (max-width: 768px) {
+    
+  }
+  
+   @media (max-width: 490px) {
+    [class*='col-']{
+      float: none;
+    }
+  }
+/* ------ BASIC LAYOUT ------- */
+.display {
+  width: 80%;
+  height: 445px;
+  overflow: auto;
+}
+
+/* ------ MINIMAL STYLE ------ */
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  color: $textColor;
+}
+
+.max-width {
+  width: 100%;
+  @include boxShadow(0px, 10px, 5px, -5px, rgba(0,0,0,0.3));
+}
+
+h1, p {
+  margin: 0 auto;
+  // border: 1px dotted blue;
+  text-align: center;
+}
+
+h1 {
+  margin: 20px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5em; /* 40px */
+  font-weight: 500;
+  color: $mainColor;
+  text-transform: uppercase;  
+  letter-spacing: 0.05em;
+}
+
+p {
+  font-size: 1.125em; /* 18px */
+  margin-bottom: 20px;
+}
+
+
+// #Fonts#
+// Header: Roboto Medium 32px, 80 PS letter spacing, uppercase
+// Text: Lato Regular 18px
+// Nav: Lato Regular 20px
+// Numbers and operators:  Lato Regular 24px
+// Display input: Lato Regular 24px
+// Sidebar: operands and operators: Lato Regular 18px
+//     result and equals: Laro Black 18px
+
+// #Colors#
+// Color palette - http://pltts.me/palettes/27905
+//  -dark blue #1B325F
+//  -light blue #9CC4E4
+//  -very light blue #E9F2F9
+//  -vibrant blue #3A89C9
+//  -orange #F26C4F 
+
+// Header: Dark blue
+// Nav: #949494
+// hover, active Nav element: vibrant blue
+// Text Main: #949494
+// Display input and Sidebar BG: #f7f7f7
+// Display input color: vibrant blue
+// Hover sidebar memory rectangle: bg-very light blue, border-light blue
+// Active sidebar memory value: Vibrant blue
+// Numbers: #949494
+// Operators: #949494
+// AC and C: Orange

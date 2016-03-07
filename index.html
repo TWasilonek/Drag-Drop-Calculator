@@ -1,12 +1,86 @@
+  <!-- Drag and Drop Calculator app
+        version: test 0.1 
+        Author: Tomasz Wasilonek  -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Drag and Drop Calculator</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <!-- Drag and Drop Calculator app
-        version: test 0.1 
-        Author: Tomasz Wasilonek  -->
+
+<!-- Header -->
+  <div class="max-width">
+    <div class="grid-container">
+      <header class="row">
+        <h1>Drag and Drop Calculator</h1>
+        <p>
+          Free to use calculator with changable styles <br>
+          and a drag and drop interface to let you easily re-use your previous evaluations.
+        </p>
+      </header>
+    </div><!-- grid-container end -->
+  </div><!-- max-width end -->
+
+<!-- Main section -->
+  <div class="grid-container">
+    <div class="row">
+      <nav class="col-2">
+        <h2>Styles</23>
+        <ul>
+          <li><a href="#">Minimal</a></li>
+          <li><a href="#">Futuristic</a></li>
+          <li><a href="#">Vintage</a></li>
+          <li><a href="#">Artistic</a></li>
+        </ul>
+      </nav>
+
+      <section class="flexbox col-6" id="calculator">
+          <div id="total">
+          </div>
+
+          <div id="operators">
+            <a id="plus">+</a>
+            <a id="minus">-</a>
+            <a id="divide">&divide;</a>
+            <a id="multiply">&times;</a>
+            <a id="sq">a<sup>n</sup></a>
+            <a id="sqrt">&Sqrt;</a>
+          </div>
+          <div id="side">
+            <a id="clear">C</a>
+            <a id="clearall">AC</a>   
+            <a id="equals">=</a>
+          </div>
+          <div id="numbers">
+            <a id="one">1</a>
+            <a id="two">2</a>
+            <a id="three">3</a>
+            <a id="four">4</a>
+            <a id="five">5</a>
+            <a id="six">6</a>
+            <a id="seven">7</a>
+            <a id="eight">8</a>
+            <a id="nine">9</a>
+            <a id="zero">0</a>
+            <a id="doubleZero">00</a>
+            <a id="tripleZero">000</a>
+            <a id="decimal">&period;</a>
+          </div>
+      </section>
+
+      <section class="memory-display col-4">
+        <div id="dipslay"></div>
+      </section>
+
+    </div><!-- row end -->
+    <footer class="row">
+      <p class="col-12">&copy Tomasz Wasilonek | 2016</p>
+    </footer>
+  </div><!-- grid-container end -->
 </body>
 </html>
