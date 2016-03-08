@@ -24,13 +24,23 @@ $textColor: #949494;
   line-height: $height;
 }
 
+@mixin flexbox {
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+}
+
+/* ------ Global------ */
+* {
+  box-sizing: border-box;
+}
+
 /* ------ GRID ------ */
 .grid-container {
    width: 100%;
    max-width: 900px;
    margin: 0 auto;
-   box-sizing: border-box;
-   border: 1px dashed green;
 }
 
 .row:before,
@@ -48,7 +58,6 @@ $textColor: #949494;
 }
 
 [class*='col-']{
-  border: 1px dotted red;
   float: left;
   min-height:1px;
   padding: 10px;
@@ -81,12 +90,12 @@ body {
 /* Header */
 .max-width {
   width: 100%;
+  margin-bottom: 40px;
   @include boxShadow(0px, 10px, 5px, -5px, rgba(0,0,0,0.3));
 }
 
 h1, p {
   margin: 0 auto;
-  // border: 1px dotted blue;
   text-align: center;
 }
 
@@ -126,17 +135,62 @@ nav {
 }
 
 /* Calculator */
-//felxbox
 
-//buttons styling
+/* Positioning */
+  #calculator {
+    margin: 0 auto;
+  }
+
+  #calculator div {
+    @include flexbox;
+  }
+
+  #total {
+    margin: 0 auto;
+  }
+
+  #operatorsTop,
+  #operatorsBottom {
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  #operatorsTop {
+    margin-bottom: 5px;
+  }
+
+  #side {
+    width: 20%;
+    float: right;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+    margin-left: 2%;
+    a {
+      margin-bottom: 13px;
+    }
+  }
+
+  #numbers {
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 70%;
+    a {
+      margin: 2% 5%;
+    }
+  }
+
+/* content styling */
 #calculator a {
   display: inline-block;
   font-size: 1.5em; /* 24px */
   border: 1px solid $textColor;
+  cursor: pointer;
 }
 
 #total {
-  width: 80%;
+  width: 100%;
   height: 45px;
   background: $inputBgColor;
   color: $mainColor; 
@@ -152,50 +206,88 @@ nav {
 
 #operatorsTop {
   a {
-    color: $mainColor;
-    border-color: $mainColor;
+     width: (90%/6);
+     @include centerLink(35px); 
+     color: $mainColor;
+     border-color: $mainColor;
+     &:hover,
+     &:active{
+        background: lighten($mainColor, 40%);
+        border-width: 2px;
+    }
+    & sup {
+      font-size: 0.7em;
+      position: relative;
+      bottom: 0.5em;
+    }
   }
 }
 
-#operatorsTop a {
-  width: 50px;
-  @include centerLink(35px); 
+#operatorsBottom a {
+  width: (80%/4);
+  @include centerLink(45px);
 }
 
-#side,
-#operatorsBottom {
-  a {
-    width: 72px;
-    @include centerLink(45px);
-  } 
+#side a {
+  width: 100%;
+  @include centerLink(45px);
 }
 
 #side a {
   color: $accentColor;
   border-color: $accentColor;
+  &:hover,
+  &:active {
+    background: lighten($accentColor, 30%);
+    border-width: 2px;
+  }
 }
 
 a#equals {
     color: $mainColor;
     border-color: $mainColor;
     @include centerLink(150px);
+    &:hover,
+    &:active{
+      background: lighten($mainColor, 40%);
+      border-width: 2px;
+    }
   }
+#operatorsBottom a {
+  &:hover,
+  &:active{
+    background: lighten($textColor, 35%);
+    border-width: 2px;
+  }
+}
 
 #numbers a {
   width: 60px;
   @include centerLink(60px);
-  border-radius: 50%
+  border-radius: 50%;
+  &:hover,
+  &:active{
+    background: lighten($textColor, 35%);
+    border-width: 2px;
+  }
 }
 
 /* Memory display */
 #display {
+  float: right;
+  padding: 5px;
   background: $inputBgColor;
   color: $textColor;
-  padding: 5px;
   border: 1px solid $textColor;
   border-radius: 10px;
 }
 
+/* Footer */
+ footer {
+  margin-top: 40px;
+  font-size: 0.8em;
+  border-top: 1px solid $textColor;
+ }
 /* JS helper classes */
 .active {
   color: $mainColor;
