@@ -3,7 +3,7 @@
 
 /* ------ VARIABLES ------ */
 $columnWidth: 100%/12;
-// $headerColor: #1B325F;
+$headerColor: #1B325F;
 $draggableBorderColor: #9CC4E4;
 $draggableBgColor: #E9F2F9;
 $mainColor: #3A89C9;
@@ -16,6 +16,12 @@ $textColor: #949494;
   -webkit-box-shadow: $horizontal $vertical $blur $spread $rgbaColor;
   -moz-box-shadow: $horizontal $vertical $blur $spread $rgbaColor;
   box-shadow: $horizontal $vertical $blur $spread $rgbaColor;
+}
+
+@mixin centerLink($height) {
+  text-align: center;
+  height: $height;
+  line-height: $height;
 }
 
 /* ------ GRID ------ */
@@ -59,7 +65,7 @@ $textColor: #949494;
     }
   }
 /* ------ BASIC LAYOUT ------- */
-.display {
+#display {
   width: 80%;
   height: 445px;
   overflow: auto;
@@ -72,6 +78,7 @@ body {
   color: $textColor;
 }
 
+/* Header */
 .max-width {
   width: 100%;
   @include boxShadow(0px, 10px, 5px, -5px, rgba(0,0,0,0.3));
@@ -91,6 +98,7 @@ h1 {
   color: $mainColor;
   text-transform: uppercase;  
   letter-spacing: 0.05em;
+  
 }
 
 p {
@@ -98,6 +106,100 @@ p {
   margin-bottom: 20px;
 }
 
+/* Navigation */
+nav { 
+  ul {
+    font-size: 1.25em; /* 20px */ 
+    text-transform: lowercase;
+  }
+  li {
+    margin-bottom: 15px;
+  }
+  a {
+    text-decoration: none;
+    color: $textColor;
+    &:hover,
+    &:active {
+      color: $mainColor;
+    }
+  }
+}
+
+/* Calculator */
+//felxbox
+
+//buttons styling
+#calculator a {
+  display: inline-block;
+  font-size: 1.5em; /* 24px */
+  border: 1px solid $textColor;
+}
+
+#total {
+  width: 80%;
+  height: 45px;
+  background: $inputBgColor;
+  color: $mainColor; 
+  font-size: 1.5em; /* 24px */
+  text-align: right;
+  border: 1px solid $textColor;
+  border-radius: 10px;
+}
+
+.square a {
+  border-radius: 7px;
+}
+
+#operatorsTop {
+  a {
+    color: $mainColor;
+    border-color: $mainColor;
+  }
+}
+
+#operatorsTop a {
+  width: 50px;
+  @include centerLink(35px); 
+}
+
+#side,
+#operatorsBottom {
+  a {
+    width: 72px;
+    @include centerLink(45px);
+  } 
+}
+
+#side a {
+  color: $accentColor;
+  border-color: $accentColor;
+}
+
+a#equals {
+    color: $mainColor;
+    border-color: $mainColor;
+    @include centerLink(150px);
+  }
+
+#numbers a {
+  width: 60px;
+  @include centerLink(60px);
+  border-radius: 50%
+}
+
+/* Memory display */
+#display {
+  background: $inputBgColor;
+  color: $textColor;
+  padding: 5px;
+  border: 1px solid $textColor;
+  border-radius: 10px;
+}
+
+/* JS helper classes */
+.active {
+  color: $mainColor;
+}
 
 // #Fonts#
 // Header: Roboto Medium 32px, 80 PS letter spacing, uppercase
