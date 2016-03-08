@@ -1,0 +1,200 @@
+$(document).ready(function(){
+  
+
+  //declare variables
+    var number1 = "";
+    var number2 = "";
+    var operator = "";
+    var totaldiv = $("#total");
+    var totalNum1 = $('.num1');
+    var totalNum2 = $('.num2');
+    var totalOperator = $('.operator');
+    var totalCleared = $('.cleared');
+    var numbersButtons = $('#numbers').find('a');
+    var operatorsButtons = $('#operatorsTop').find('a');
+    var sideOperatorsButtons = $('#side').find('a');
+    var bottomOperatorsButtons = $('#operatorsBottom').find('a');
+    var clearButton = $('#clear');
+    var clearAllButton = $('#clearall');
+    var equalsButton = $('#equals');
+    var decimalButton = $('#decimal');
+    var sqrtButton = $('#sqrt');
+    var sqButton = $('#sq');
+    var multiplyButton = $('#multiply');
+    var divideButton = $('#divide');
+
+
+    //set the default value of the Total field to 0
+    totalCleared.text("0");
+
+    //click on numbers
+    numbersButtons.add(bottomOperatorsButtons).not('#decimal').on('click', function(e) {
+      //clear the "0" from the display output
+      totalCleared.text("");
+      //if the previous evaluation ended as a 0, clear it before proceeding
+      if (($(totalNum1).text() === "0") && ($(totalOperator).text() === "")) {
+        $(totalNum1).text("");
+        number1 = "";
+      }
+      //assign the entered number to number1 or number2
+      if ($(totalOperator).text() === "") {
+         //append the new number to the 'number1' string
+        number1 += $(this).text();
+        //display the 'number' string in the output
+        totalNum1.text(number1);
+        //test if the string is not more than 15 characters long
+        $(number1).text(testNumLength(number1));
+      } else {
+        //append the new number to the 'number2' string
+        number2 += $(this).text();
+        //display the 'number2' string in the output
+        totalNum2.text(number2);
+        //test if the string is not more than 15 characters long
+        $(number2).text(testNumLength(number2));
+      }
+      if((number2 === 'Err - more than 15 digits') || (number1 === 'Err - more than 15 digits') ) {
+          clearAll();
+          $(totalCleared).text(number2)
+        }
+    });
+
+    //click on operators
+    operatorsButtons.on('click', function(e){
+      var thisBtn = $(this);
+      //change the 'operator' string to the operator text
+      operator = thisBtn.text();
+
+      //if the operator is square root, run the click event on "=" as it doesn't need the second number
+      if (thisBtn[0] === sqrtButton[0]) {
+        //go straight to the sqrt evaluation as it doesn't need a second number
+        $('#equals').click();
+        // return;
+      } else {
+        //display the operator in the 'total' box
+          if(thisBtn[0] === sqButton[0]) {
+            $(totalOperator).text("^");
+          } else {
+             $(totalOperator).text(operator);
+          }
+      }
+    });
+
+     //equals button (=) functionality
+    equalsButton.on('click', function(e) {       
+      var result = 0;
+
+      if (operator === "+") {
+          result = parseFloat(number1, 10) + parseFloat(number2, 10);
+      } else if (operator === "-") {
+          result = parseFloat(number1, 10) - parseFloat(number2, 10);
+      } else if (operator === decodeHtml($(divideButton).text())) {
+          result = parseFloat(number1, 10) / parseFloat(number2, 10);
+      } else if (operator === decodeHtml($(multiplyButton).text())) {
+          result = parseFloat(number1, 10) * parseFloat(number2, 10);
+      } else if (operator === decodeHtml($(sqrtButton).text())){  
+          result = Math.sqrt(parseFloat(number1, 10));
+      } else if (operator === "an"){
+          result = Math.pow(parseFloat(number1, 10), parseFloat(number2, 10));
+      }
+
+      //round off the result
+      if (isFloat(result)) {
+       result = parseFloat(result.toFixed(14));
+      }
+
+      $(totalNum1).text(result);
+      $(totalNum2).text("");
+      $(totalOperator).text("");
+      result = testNumLength(result);
+      $(number1).text(result);
+      number2 = "";
+      operator = "";
+    });
+
+    //clear button (C) functionality
+      clearButton.on('click', function(e){
+        clear();
+      });
+    //clear all button (AC) functionality
+      clearAllButton.on('click', function(e){
+        clearAll();
+      });
+
+    //click on decimal button
+      decimalButton.on('click', function(e){
+        if (($(totalNum2).text() === "") && ($(totalOperator).text() === "")) {
+          totalNum1.text(decimalCheck(totalNum1.text()));
+          number1 = totalNum1.text();
+        } else {
+          totalNum2.text(decimalCheck(totalNum2.text()));
+          number2 = totalNum2.text();
+        } 
+      });
+    
+  /* ******** HELPER FUNCTIONS ********* */
+
+    //check if assign decimal
+      function decimalCheck(number){
+        //check if there are any '.' already
+        var numOfDecs = 0;
+        for(var i = 0; i < number.length; i++) {
+          if(number.indexOf('.') !== -1) {
+            numOfDecs ++;
+          }
+        }
+        //if there aren't, add the '.' at the end of the number
+        if(numOfDecs === 0) {
+          number += decimalButton.text();
+        } 
+        $(number).text(testNumLength(number));
+        return number;
+      }
+
+    //Testing the number of entered characters in the calculator input and returning an error if it exeeds 15
+      var testNumLength = function(number) {
+        if (number.length > 9) {
+          number.substr(number.length-9,9);
+          if (number.length > 25) {
+            number = "";
+            return "Err - more than 15 digits";
+          } else {
+            return number;
+          }
+        } 
+      };
+
+    //function checking if a number is a float
+      function isFloat(n) { 
+         return n % 1 !== 0;
+      }
+
+    //function to decode special characters
+      function decodeHtml(html) {
+          var txt = document.createElement("textarea");
+          txt.innerHTML = html;
+          return txt.value;
+      }
+
+    //clear the coorect number's value and reset the output field
+      function clear() {
+        if($(totalNum2).text() === "") {
+          clearAll();
+        } else {
+          number2 = "";
+          $(totalNum2).text("");
+        }
+      }
+
+    //clear everything
+      function clearAll() {
+        number1 = "";
+        number2 = "";
+        operator = "";
+        $(totalNum1).text("");
+        $(totalNum2).text("");
+        $(totalOperator).text("");
+        $(totalCleared).text("0");
+      }
+
+    
+});
