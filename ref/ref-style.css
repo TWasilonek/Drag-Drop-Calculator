@@ -80,3 +80,34 @@ a#equals {
     padding-top: 50px;
     height: 100px;
 }
+
+/*Drag and drop API styling */
+.drag-drop {
+  display: block;
+  clear: both;
+}
+
+#dropbox, #dropbox2, #dropbox3, #dropbox4{
+float: left;
+width: 500px;
+height: 300px;
+margin: 10px;
+border: 1px solid #999999;
+}
+#picturesbox, #picturesbox2, #picturesbox3{
+float: left;
+width: 320px;
+margin: 10px;
+border: 1px solid #999999;
+}
+#picturesbox > img, #picturesbox2 > img, #picturesbox3 > img{
+float: left;
+padding: 5px;
+}
+
+
+
+
+
+
+

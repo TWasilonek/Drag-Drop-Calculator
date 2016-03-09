@@ -277,11 +277,30 @@ a#equals {
 /* Memory display */
 #display {
   float: right;
-  padding: 5px;
   background: $inputBgColor;
   color: $textColor;
   border: 1px solid $textColor;
   border-radius: 10px;
+}
+
+#displayActive {
+  padding: 5%;
+}
+
+.clear-memory {
+  width: 100%;
+  height: 20px;
+  padding: 0;
+  background: $inputBgColor;
+  color: $textColor;
+  border: none;
+  border-bottom: 1px solid $textColor;
+  // outline: none;
+  &:hover,
+  &:active {
+    background: $mainColor;
+    color: #fff;
+  }
 }
 
 /* Footer */
@@ -290,6 +309,8 @@ a#equals {
   font-size: 0.8em;
   border-top: 1px solid $textColor;
  }
+
+
 /* JS helper classes */
 .active {
   color: $mainColor;
@@ -300,6 +321,33 @@ a#equals {
   margin-left: 5px;
   margin-right: 5px;
 }
+
+#displayActive {
+    [class*='col-']{
+    padding: 1% 5%;
+  }
+}
+
+.memory-operation {
+  margin-top: 15px;
+}
+/* .memory-operation-equals {
+  float: left;
+} */
+
+.memory-operation-result {
+  text-align: right;
+  font-weight: 700;
+}
+
+.memory-operation-num {
+  text-align: right;
+}
+
+.memory-operation-operator {
+  text-align: right;
+}
+
 
 // #Fonts#
 // Header: Roboto Medium 32px, 80 PS letter spacing, uppercase

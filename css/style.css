@@ -360,11 +360,29 @@ a#equals:hover, a#equals:active {
 /* Memory display */
 #display {
   float: right;
-  padding: 5px;
   background: #f7f7f7;
   color: #949494;
   border: 1px solid #949494;
   border-radius: 10px;
+}
+
+#displayActive {
+  padding: 5%;
+}
+
+.clear-memory {
+  width: 100%;
+  height: 20px;
+  padding: 0;
+  background: #f7f7f7;
+  color: #949494;
+  border: none;
+  border-bottom: 1px solid #949494;
+}
+
+.clear-memory:hover, .clear-memory:active {
+  background: #3A89C9;
+  color: #fff;
 }
 
 /* Footer */
@@ -383,4 +401,28 @@ footer {
   color: #F26C4F;
   margin-left: 5px;
   margin-right: 5px;
+}
+
+#displayActive [class*='col-'] {
+  padding: 1% 5%;
+}
+
+.memory-operation {
+  margin-top: 15px;
+}
+
+/* .memory-operation-equals {
+  float: left;
+} */
+.memory-operation-result {
+  text-align: right;
+  font-weight: 700;
+}
+
+.memory-operation-num {
+  text-align: right;
+}
+
+.memory-operation-operator {
+  text-align: right;
 }
