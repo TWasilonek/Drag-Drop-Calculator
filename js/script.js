@@ -43,18 +43,18 @@ $(document).ready(function(){
         //display the 'number' string in the output
         totalNum1.text(number1);
         //test if the string is not more than 15 characters long
-        $(number1).text(testNumLength(number1));
+        number1 = testNumLength(number1);
       } else {
         //append the new number to the 'number2' string
         number2 += $(this).text();
         //display the 'number2' string in the output
         totalNum2.text(number2);
         //test if the string is not more than 15 characters long
-        $(number2).text(testNumLength(number2));
+        number2 = testNumLength(number2);
       }
-      if((number2 === 'Err - more than 15 digits') || (number1 === 'Err - more than 15 digits') ) {
+      if((number2 === 'Error - more than 15 digits') || (number1 === 'Error - more than 15 digits') ) {
           clearAll();
-          $(totalCleared).text(number2)
+          $(totalCleared).text('Error - more than 15 digits');
         }
     });
 
@@ -102,11 +102,12 @@ $(document).ready(function(){
        result = parseFloat(result.toFixed(14));
       }
 
+      
+      result = testNumLength(result.toString());
       $(totalNum1).text(result);
+      number1 = result;
       $(totalNum2).text("");
       $(totalOperator).text("");
-      result = testNumLength(result);
-      $(number1).text(result);
       number2 = "";
       operator = "";
     });
@@ -130,6 +131,8 @@ $(document).ready(function(){
           number2 = totalNum2.text();
         } 
       });
+
+  
     
   /* ******** HELPER FUNCTIONS ********* */
 
@@ -146,7 +149,7 @@ $(document).ready(function(){
         if(numOfDecs === 0) {
           number += decimalButton.text();
         } 
-        $(number).text(testNumLength(number));
+        number = testNumLength(number);
         return number;
       }
 
@@ -154,13 +157,12 @@ $(document).ready(function(){
       var testNumLength = function(number) {
         if (number.length > 9) {
           number.substr(number.length-9,9);
-          if (number.length > 25) {
+          if (number.length > 15) {
             number = "";
-            return "Err - more than 15 digits";
-          } else {
-            return number;
-          }
+            return "Error - more than 15 digits";
+          } 
         } 
+        return number;
       };
 
     //function checking if a number is a float
@@ -196,5 +198,47 @@ $(document).ready(function(){
         $(totalCleared).text("0");
       }
 
+  /* ******** MAPPING KEY CODES ********* */
+     $(document).keypress(function(event){
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        console.log(keycode);
+        if (keycode === 49) {
+            $("#one").click();
+       } else if (keycode === 50) {
+            $("#two").click();
+        } else if (keycode === 51) {
+            $("#three").click();
+        } else if (keycode === 52) {
+            $("#four").click();
+        } else if (keycode === 53) {
+            $("#five").click();
+        } else if (keycode === 54) {
+            $("#six").click();
+        } else if (keycode === 55) {
+            $("#seven").click();
+        } else if (keycode === 56) {
+            $("#eight").click();
+        } else if (keycode === 57) {
+            $("#nine").click();
+        } else if (keycode === 48) {
+            $("#zero").click();
+        } else if (keycode === 97) {
+            clearAllButton.click();
+        } else if (keycode === 99) {
+            clearButton.click();
+        } else if (keycode === 61 || keycode === 13) {
+            $("#equals").click();
+        } else if (keycode === 43) {
+            $("#plus").click();
+        } else if (keycode === 45) {
+            $("#minus").click();
+        } else if (keycode === 42 || keycode === 120) {
+            $("#multiply").click();
+        } else if (keycode === 47) {
+            $("#divide").click();
+        } else if (keycode === 46) {
+            $("decimal").click(); // not working :(
+        } 
+    });
     
 });
