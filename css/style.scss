@@ -11,6 +11,7 @@ $accentColor: #F26C4F;
 $inputBgColor: #f7f7f7;
 $textColor: #949494;
 $darkBGtextColor: #fff;
+$displayMemoryBorderRadius: 10px;
 
 /* ------ MIXINS ------ */
 @mixin boxShadow($horizontal, $vertical, $blur, $spread, $rgbaColor) {
@@ -78,7 +79,6 @@ $darkBGtextColor: #fff;
 #display {
   width: 80%;
   height: 445px;
-  overflow: auto;
 }
 
 /* ------ MINIMAL STYLE ------ */
@@ -184,6 +184,13 @@ nav {
   }
 
 /* content styling */
+.alert {
+  width: 50%;
+  text-align: center;
+  color: red;
+  font-size: 1em;
+}
+
 #calculator a {
   display: inline-block;
   font-size: 1.5em; /* 24px */
@@ -202,6 +209,7 @@ nav {
   border: 1px solid $textColor;
   border-radius: 10px;
 }
+
 
 .square a {
   border-radius: 7px;
@@ -281,11 +289,13 @@ a#equals {
   background: $inputBgColor;
   color: $textColor;
   border: 1px solid $textColor;
-  border-radius: 10px;
+  border-radius: $displayMemoryBorderRadius;
 }
 
 #displayActive {
   padding: 5%;
+  height: 420px;
+  overflow: auto;
 }
 
 .display-memory-button {
@@ -296,7 +306,11 @@ a#equals {
   border: none;
   border-bottom: 1px solid $darkestColor;
   &:first-child {
-    border-right: 1px solid $darkestColor; 
+    border-right: 1px solid $darkestColor;
+    border-radius: $displayMemoryBorderRadius 0 0 0; 
+  }
+  &:last-child {
+    border-radius: 0 $displayMemoryBorderRadius 0 0; 
   }
   // outline: none;
   &:hover,
@@ -314,6 +328,10 @@ a#equals {
 
 
 /* JS helper classes */
+.hidden {
+  display: none;
+}
+
 .active {
   color: $mainColor;
 }

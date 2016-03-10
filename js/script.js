@@ -8,7 +8,7 @@ $(document).ready(function(){
     var totalNum1 = $('.num1');
     var totalNum2 = $('.num2');
     var totalOperator = $('.operator');
-    var totalCleared = $('.cleared');
+    var totalAlert = $('.alert');
     var numbersButtons = $('#numbers').find('a');
     var operatorsButtons = $('#operatorsTop').find('a');
     var sideOperatorsButtons = $('#side').find('a');
@@ -24,14 +24,15 @@ $(document).ready(function(){
     var memoryDisplay = $('#displayActive');
     var clearMemoryButton = $('#clear-memory');
     var restoreMemoryButton = $('#restore-memory');
+    var draggablesParent = $('#displayActive');
+    var dropzones = $('.dropzone');
 
     //set the default value of the Total field to 0
-      totalCleared.text("0");
+      totalNum1.text("0");
+      number1 = "0";
 
     //click on numbers
       numbersButtons.add(bottomOperatorsButtons).not('#decimal').on('click', function(e) {
-        //clear the "0" from the display output
-        totalCleared.text("");
         //if the previous evaluation ended as a 0, clear it before proceeding
         if (($(totalNum1).text() === "0") && ($(totalOperator).text() === "")) {
           $(totalNum1).text("");
@@ -54,9 +55,10 @@ $(document).ready(function(){
           number2 = testNumLength(number2);
         }
         if((number2 === 'Error - more than 15 digits') || (number1 === 'Error - more than 15 digits') ) {
-            clearAll();
-            $(totalCleared).text('Error - more than 15 digits');
-          }
+          clearAll();
+          $(totalNum1).text('Error - more than 15 digits');
+          number1 = "";
+        }
       });
 
     //click on operators
@@ -64,7 +66,7 @@ $(document).ready(function(){
         var thisBtn = $(this);
         //change the 'operator' string to the operator text
         operator = thisBtn.text();
-
+        $(totalOperator).text(operator);
         //if the operator is square root, run the click event on "=" as it doesn't need the second number
         if (thisBtn[0] === sqrtButton[0]) {
           //go straight to the sqrt evaluation as it doesn't need a second number
@@ -82,37 +84,20 @@ $(document).ready(function(){
 
     //equals button (=) functionality
       equalsButton.on('click', function(e) {       
-        var result = 0;
-
-        if (operator === "+") {
-            result = parseFloat(number1, 10) + parseFloat(number2, 10);
-        } else if (operator === "-") {
-            result = parseFloat(number1, 10) - parseFloat(number2, 10);
-        } else if (operator === decodeHtml($(divideButton).text())) {
-            result = parseFloat(number1, 10) / parseFloat(number2, 10);
-        } else if (operator === decodeHtml($(multiplyButton).text())) {
-            result = parseFloat(number1, 10) * parseFloat(number2, 10);
-        } else if (operator === decodeHtml($(sqrtButton).text())){  
-            result = Math.sqrt(parseFloat(number1, 10));
-        } else if (operator === "an"){
-            result = Math.pow(parseFloat(number1, 10), parseFloat(number2, 10));
-        }
-        //round off the result
-        if (isFloat(result)) {
-         result = parseFloat(result.toFixed(14));
-        }
-        //display everything correctly   
-        result = testNumLength(result.toString());
-        $(totalNum1).text(result);
-        //add the operation to the memory display
-        saveAndDisplayOperation(number1, number2, operator, result);  
-        //reset variabes
-        number1 = result;
-        $(totalNum2).text("");
-        $(totalOperator).text("");
-        number2 = "";
-        operator = "";
-       
+        if (number2 !== "") {
+          makeOperation();
+        } else {
+          //show the missing field in the output
+          $(totalNum2).addClass('dropzone-revealed').animate({
+            opacity: 0.5
+          },'400', 'swing', function() {
+            $(totalNum2).removeClass('dropzone-revealed').animate({
+              opacity: 0
+            },'400', 'swing', function(){
+              $(totalNum2).css('opacity','1');
+            });
+          });
+        }    
       });
 
     //clear button (C) functionality
@@ -149,6 +134,44 @@ $(document).ready(function(){
       });
 
   /* ******** HELPER FUNCTIONS ********* */
+    //make operation and return result
+      function makeOperation(){
+        var result = 0;
+
+        if (operator === "+") {
+            result = parseFloat(number1, 10) + parseFloat(number2, 10);
+        } else if (operator === "-") {
+            result = parseFloat(number1, 10) - parseFloat(number2, 10);
+        } else if (operator === decodeHtml($(divideButton).text())) {
+            result = parseFloat(number1, 10) / parseFloat(number2, 10);
+        } else if (operator === decodeHtml($(multiplyButton).text())) {
+            result = parseFloat(number1, 10) * parseFloat(number2, 10);
+        } else if (operator === decodeHtml($(sqrtButton).text())){  
+            result = Math.sqrt(parseFloat(number1, 10));
+        } else if (operator === "an"){
+        //default for not entering number 2 = square exponentiation
+        if(number2 === "") {
+          number2 = number1;
+        }
+        result = Math.pow(parseFloat(number1, 10), parseFloat(number2, 10));
+        }
+        if (isFloat(result)) { 
+          //round off the result if it has more than 15 characters
+          result = parseFloat(result.toFixed(14));
+        }
+        //test the result for number of characters 
+        result = testNumLength(result.toString());
+        //display everything correctly 
+        $(totalNum1).text(result);
+        //add the operation to the memory display
+        saveAndDisplayOperation(number1, number2, totalOperator.text(), result);  
+        //reset variabes
+        number1 = result;
+        $(totalNum2).text("");
+        $(totalOperator).text("");
+        number2 = "";
+        operator = "";
+      }
 
     //check if assign decimal
       function decimalCheck(number){
@@ -203,22 +226,21 @@ $(document).ready(function(){
 
     //clear everything
       function clearAll() {
-        number1 = "";
+        number1 = "0";
         number2 = "";
         operator = "";
-        $(totalNum1).text("");
+        $(totalNum1).text("0");
         $(totalNum2).text("");
         $(totalOperator).text("");
-        $(totalCleared).text("0");
       }
 
   /* ******** MAPPING KEY CODES ********* */
-     $(document).keypress(function(event){
+    $(document).keypress(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
         console.log(keycode);
         if (keycode === 49) {
             $("#one").click();
-       } else if (keycode === 50) {
+        } else if (keycode === 50) {
             $("#two").click();
         } else if (keycode === 51) {
             $("#three").click();
@@ -267,12 +289,66 @@ $(document).ready(function(){
         + '<span class="memory-operation-num draggable col-5" draggable="true">' + number2 + '</span></div>'
         + '</div>'
       ); 
-
       //add the div to the memory display
       $(newOperation).appendTo(memoryDisplay); 
       //make a snapshot of the current memory state
       currentMemoryState = $(memoryDisplay).html();
     }
 
+    /* DRAG AND DROP functionality */
+      //Draggable elements functionalities
+      draggablesParent.on('dragstart', '.draggable', function(e){
+        // Take the text from the current element
+        var value = $(this).text();
+        e.dataTransfer = e.originalEvent.dataTransfer;
+        e.dataTransfer.setData('text/plain', value);
+
+        // Highlight the possible dropzones
+        if ($(totalOperator).text() === "") {
+          $(totalNum1).addClass('dropzone-revealed');
+        } else {
+          $(dropzones).addClass('dropzone-revealed');
+        }
+      });
+
+      // When the drag action is over, remove the highlight effect from possible dropzones
+      draggablesParent.on('dragend', '.draggable', function(e) {
+        dropzones.removeClass('dropzone-revealed');
+      });
+
+    //Dropzones functionalities
+      dropzones.on('dragenter', function(e){
+        e.preventDefault();
+        $(this).addClass('dropzone-hover');
+      });
+
+      dropzones.on('dragleave', function(e){
+        e.preventDefault();
+        $(this).removeClass('dropzone-hover');
+      });
+
+      //cancel the deaful action of the last events dragenter and dragover - this is NEEDED in order to ALLOW THE DROP EVENT
+      dropzones.on('dragenter', function(e){ e.preventDefault(); }, false);
+      dropzones.on('dragover', function(e){ e.preventDefault(); }, false);
+
+      //call the drop event
+      dropzones.on('drop', function(e){
+        var thisNumber = $(this);
+
+        e.preventDefault();
+        e.dataTransfer = e.originalEvent.dataTransfer;
+        thisNumber.text(e.dataTransfer.getData('text/plain'));
+        thisNumber.removeClass('dropzone-hover');
+
+        if (totalNum1.is(this)) {
+          number1 = thisNumber.text();
+        } else if (totalNum2.is(this)) {
+          number2 = thisNumber.text();
+        }
+
+        console.log('dropped');
+        console.log('number1:', number1);
+        console.log('number2:', number2);
+      });
 
 });

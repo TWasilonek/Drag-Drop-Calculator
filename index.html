@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./css/style.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="./js/script.js"></script>
-  <script type="text/javascript" src="./js/drag_and_drop_script.js"></script>
+  <!-- <script type="text/javascript" src="./js/drag_and_drop_script.js"></script> -->
 </head>
 <body>
 
@@ -43,7 +43,6 @@
 
       <section class="flexbox col-6" id="calculator">
           <div id="total">
-            <span class="cleared"></span>
             <span class="num1 dropzone"></span>
             <span class="operator"></span>
             <span class="num2 dropzone"></span>
@@ -92,19 +91,6 @@
           </div><!-- grid-container end -->
           <div id="displayActive">
              <!-- Here will appear the saved operations -->
-
-            <div class="memory-operation grid-container">
-              <div class="row">
-                <span class="memory-operation-equals col-3">=</span>
-                <span class="memory-operation-result draggable col-9" draggable="true">33</span>
-              </div>
-              <div class="row">
-                <span class="memory-operation-num draggable col-5" draggable="true">3</span>
-                <span class="memory-operation-operator col-2">+</span>
-                <span class="memory-operation-num draggable col-5" draggable="true">30</span>
-              </div>
-            </div><!-- end of memory operation -->
-
           </div>
         </div>
       </section>

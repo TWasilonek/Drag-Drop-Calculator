@@ -139,7 +139,6 @@ table {
 #display {
   width: 80%;
   height: 445px;
-  overflow: auto;
 }
 
 /* ------ MINIMAL STYLE ------ */
@@ -257,6 +256,13 @@ nav a:hover, nav a:active {
 }
 
 /* content styling */
+.alert {
+  width: 50%;
+  text-align: center;
+  color: red;
+  font-size: 1em;
+}
+
 #calculator a {
   display: inline-block;
   font-size: 1.5em;
@@ -368,6 +374,8 @@ a#equals:hover, a#equals:active {
 
 #displayActive {
   padding: 5%;
+  height: 420px;
+  overflow: auto;
 }
 
 .display-memory-button {
@@ -381,6 +389,11 @@ a#equals:hover, a#equals:active {
 
 .display-memory-button:first-child {
   border-right: 1px solid #1B325F;
+  border-radius: 10px 0 0 0;
+}
+
+.display-memory-button:last-child {
+  border-radius: 0 10px 0 0;
 }
 
 .display-memory-button:hover, .display-memory-button:active {
@@ -395,6 +408,10 @@ footer {
 }
 
 /* JS helper classes */
+.hidden {
+  display: none;
+}
+
 .active {
   color: #3A89C9;
 }
