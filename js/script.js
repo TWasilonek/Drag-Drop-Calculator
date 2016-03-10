@@ -261,10 +261,10 @@ $(document).ready(function(){
       var newOperation = $(
         '<div class="memory-operation grid-container">' 
         + '<div class="row"><span class="memory-operation-equals col-3">' + '=' + '</span>'
-        + '<span class="memory-operation-result col-9">' + result + '</span></div>'
-        + '<div class="row"><span class="memory-operation-num col-5">' + number1 + '</span>'
+        + '<span class="memory-operation-result draggable col-9" draggable="true">' + result + '</span></div>'
+        + '<div class="row"><span class="memory-operation-num draggable col-5" draggable="true">' + number1 + '</span>'
         + '<span class="memory-operation-operator col-2">' + operator + '</span>'
-        + '<span class="memory-operation-num col-5">' + number2 + '</span></div>'
+        + '<span class="memory-operation-num draggable col-5" draggable="true">' + number2 + '</span></div>'
         + '</div>'
       ); 
 

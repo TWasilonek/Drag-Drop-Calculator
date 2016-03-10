@@ -425,3 +425,22 @@ footer {
 .memory-operation-operator {
   text-align: right;
 }
+
+.draggable:hover {
+  background: #E9F2F9;
+  border: 2px solid #9CC4E4;
+  border-radius: 7px;
+}
+
+.dropzone-revealed {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 5px;
+  height: 35px;
+  line-height: 100%;
+  min-width: 20px;
+  color: #F26C4F;
+  background: #fde3dd;
+  border: 1px solid #F26C4F;
+  border-radius: 7px;
+}

@@ -347,6 +347,26 @@ a#equals {
   text-align: right;
 }
 
+//drag drop classes
+.draggable:hover {
+  background: $draggableBgColor;
+  border: 2px solid $draggableBorderColor;
+  border-radius: 7px;
+}
+
+.dropzone-revealed {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 5px;
+  height: 35px;
+  line-height: 100%;
+  min-width: 20px;
+  color: $accentColor;
+  background: lighten($accentColor, 30%);
+  border: 1px solid $accentColor;
+  border-radius: 7px;
+}
+
 
 // #Fonts#
 // Header: Roboto Medium 32px, 80 PS letter spacing, uppercase
