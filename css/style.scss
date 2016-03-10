@@ -3,13 +3,14 @@
 
 /* ------ VARIABLES ------ */
 $columnWidth: 100%/12;
-$headerColor: #1B325F;
+$darkestColor: #1B325F;
 $draggableBorderColor: #9CC4E4;
 $draggableBgColor: #E9F2F9;
 $mainColor: #3A89C9;
 $accentColor: #F26C4F;
 $inputBgColor: #f7f7f7;
 $textColor: #949494;
+$darkBGtextColor: #fff;
 
 /* ------ MIXINS ------ */
 @mixin boxShadow($horizontal, $vertical, $blur, $spread, $rgbaColor) {
@@ -287,19 +288,20 @@ a#equals {
   padding: 5%;
 }
 
-.clear-memory {
-  width: 100%;
+.display-memory-button {
   height: 20px;
   padding: 0;
-  background: $inputBgColor;
-  color: $textColor;
+  background: $mainColor;
+  color: $darkBGtextColor;
   border: none;
-  border-bottom: 1px solid $textColor;
+  border-bottom: 1px solid $darkestColor;
+  &:first-child {
+    border-right: 1px solid $darkestColor; 
+  }
   // outline: none;
   &:hover,
   &:active {
-    background: $mainColor;
-    color: #fff;
+    background: $darkestColor;
   }
 }
 
@@ -331,9 +333,6 @@ a#equals {
 .memory-operation {
   margin-top: 15px;
 }
-/* .memory-operation-equals {
-  float: left;
-} */
 
 .memory-operation-result {
   text-align: right;

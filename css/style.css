@@ -370,19 +370,21 @@ a#equals:hover, a#equals:active {
   padding: 5%;
 }
 
-.clear-memory {
-  width: 100%;
+.display-memory-button {
   height: 20px;
   padding: 0;
-  background: #f7f7f7;
-  color: #949494;
-  border: none;
-  border-bottom: 1px solid #949494;
-}
-
-.clear-memory:hover, .clear-memory:active {
   background: #3A89C9;
   color: #fff;
+  border: none;
+  border-bottom: 1px solid #1B325F;
+}
+
+.display-memory-button:first-child {
+  border-right: 1px solid #1B325F;
+}
+
+.display-memory-button:hover, .display-memory-button:active {
+  background: #1B325F;
 }
 
 /* Footer */
@@ -411,9 +413,6 @@ footer {
   margin-top: 15px;
 }
 
-/* .memory-operation-equals {
-  float: left;
-} */
 .memory-operation-result {
   text-align: right;
   font-weight: 700;

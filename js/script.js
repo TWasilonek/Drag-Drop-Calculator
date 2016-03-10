@@ -3,6 +3,7 @@ $(document).ready(function(){
     var number1 = "";
     var number2 = "";
     var operator = "";
+    var currentMemoryState = "";
     var totaldiv = $("#total");
     var totalNum1 = $('.num1');
     var totalNum2 = $('.num2');
@@ -21,7 +22,8 @@ $(document).ready(function(){
     var multiplyButton = $('#multiply');
     var divideButton = $('#divide');
     var memoryDisplay = $('#displayActive');
-    var clearMemoryButton = $('.clear-memory');
+    var clearMemoryButton = $('#clear-memory');
+    var restoreMemoryButton = $('#restore-memory');
 
     //set the default value of the Total field to 0
       totalCleared.text("0");
@@ -137,6 +139,13 @@ $(document).ready(function(){
     //clear memory button functionality
       clearMemoryButton.on('click', function(e){
         $(memoryDisplay).html("");
+      });
+
+    //restore memory button functionality
+      restoreMemoryButton.on('click', function(e){
+        if($(memoryDisplay).html() === "") {
+          $(memoryDisplay).html(currentMemoryState);
+        }
       });
 
   /* ******** HELPER FUNCTIONS ********* */
@@ -260,7 +269,9 @@ $(document).ready(function(){
       ); 
 
       //add the div to the memory display
-      $(newOperation).appendTo(memoryDisplay);  
+      $(newOperation).appendTo(memoryDisplay); 
+      //make a snapshot of the current memory state
+      currentMemoryState = $(memoryDisplay).html();
     }
 
 
