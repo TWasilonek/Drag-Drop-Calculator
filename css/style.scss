@@ -364,7 +364,13 @@ a#equals {
   color: $accentColor;
   background: lighten($accentColor, 30%);
   border: 1px solid $accentColor;
-  border-radius: 7px;
+  border-radius: 7px; 
+}
+
+.dropzone-hover {
+  height: 100%;
+  margin: 0;
+  @include boxShadow(0px, 0px, 5px, 2px, rgba(243,108,79,0.5));
 }
 
 
