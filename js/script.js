@@ -4,11 +4,12 @@ $(document).ready(function(){
     var number2 = "";
     var operator = "";
     var currentMemoryState = "";
+    var lastResult = "";
     var totaldiv = $("#total");
+    var totalSpansAll = totaldiv.find('span');
     var totalNum1 = $('.num1');
     var totalNum2 = $('.num2');
     var totalOperator = $('.operator');
-    var totalAlert = $('.alert');
     var numbersButtons = $('#numbers').find('a');
     var operatorsButtons = $('#operatorsTop').find('a');
     var sideOperatorsButtons = $('#side').find('a');
@@ -26,6 +27,7 @@ $(document).ready(function(){
     var restoreMemoryButton = $('#restore-memory');
     var draggablesParent = $('#displayActive');
     var dropzones = $('.dropzone');
+    var alertField = $('.alert');
 
     //set the default value of the Total field to 0
       totalNum1.text("0");
@@ -34,30 +36,35 @@ $(document).ready(function(){
     //click on numbers
       numbersButtons.add(bottomOperatorsButtons).not('#decimal').on('click', function(e) {
         //if the previous evaluation ended as a 0, clear it before proceeding
-        if (($(totalNum1).text() === "0") && ($(totalOperator).text() === "")) {
+        if ( ($(totalNum1).text() === "0") && ($(totalOperator).text() === "") ){
           $(totalNum1).text("");
           number1 = "";
         }
         //assign the entered number to number1 or number2
         if ($(totalOperator).text() === "") {
-           //append the new number to the 'number1' string
+          if( $(totalNum1).text() === lastResult ){
+            //if totalNum1 still holds the last result value, treat this action as if the user wanted to change totalNum1 and not add new characters at the end of it.
+            //in this case first clear number1 and totalNum1
+            $(totalNum1).text("");
+            number1 = "";
+          } 
+          //append the new number to the 'number1' string
           number1 += $(this).text();
-          //display the 'number' string in the output
+          //check if number1 is more than 15 characters long and if it is, don't add the new digit to it and inform the user about the problem
+          if(testNumLength(number1)) {
+            number1 = tooLongNumber(number1);
+          } 
+          //display the 'number1' string in the output
           totalNum1.text(number1);
-          //test if the string is not more than 15 characters long
-          number1 = testNumLength(number1);
         } else {
           //append the new number to the 'number2' string
           number2 += $(this).text();
+          //check if number2 is more than 15 characters long and if it is, don't add the new digit to it and inform the user about the problem
+          if(testNumLength(number2)) {
+            number2 = tooLongNumber(number2);
+          } 
           //display the 'number2' string in the output
           totalNum2.text(number2);
-          //test if the string is not more than 15 characters long
-          number2 = testNumLength(number2);
-        }
-        if((number2 === 'Error - more than 15 digits') || (number1 === 'Error - more than 15 digits') ) {
-          clearAll();
-          $(totalNum1).text('Error - more than 15 digits');
-          number1 = "";
         }
       });
 
@@ -70,8 +77,7 @@ $(document).ready(function(){
         //if the operator is square root, run the click event on "=" as it doesn't need the second number
         if (thisBtn[0] === sqrtButton[0]) {
           //go straight to the sqrt evaluation as it doesn't need a second number
-          $('#equals').click();
-          // return;
+          makeOperation();
         } else {
           //display the operator in the 'total' box
             if(thisBtn[0] === sqButton[0]) {
@@ -149,18 +155,20 @@ $(document).ready(function(){
         } else if (operator === decodeHtml($(sqrtButton).text())){  
             result = Math.sqrt(parseFloat(number1, 10));
         } else if (operator === "an"){
-        //default for not entering number 2 = square exponentiation
-        if(number2 === "") {
-          number2 = number1;
-        }
-        result = Math.pow(parseFloat(number1, 10), parseFloat(number2, 10));
+          //default for not entering number2 = square exponentiation
+          if(number2 === "") {
+            number2 = number1;
+          }
+          result = Math.pow(parseFloat(number1, 10), parseFloat(number2, 10));
         }
         if (isFloat(result)) { 
           //round off the result if it has more than 15 characters
           result = parseFloat(result.toFixed(14));
         }
-        //test the result for number of characters 
-        result = testNumLength(result.toString());
+        //test the result for number of characters
+        if(testNumLength(result.toString())) {
+            result = tooLongNumber(result.toString());
+          }  
         //display everything correctly 
         $(totalNum1).text(result);
         //add the operation to the memory display
@@ -171,6 +179,7 @@ $(document).ready(function(){
         $(totalOperator).text("");
         number2 = "";
         operator = "";
+        lastResult = result;
       }
 
     //check if assign decimal
@@ -186,21 +195,39 @@ $(document).ready(function(){
         if(numOfDecs === 0) {
           number += decimalButton.text();
         } 
-        number = testNumLength(number);
+        if(testNumLength(number)) {
+            number = tooLongNumber(number);
+          } 
+        // number = testNumLength(number);
         return number;
       }
 
-    //Testing the number of entered characters in the calculator input and returning an error if it exeeds 15
+    // Test if the number is more than 15 digits
       var testNumLength = function(number) {
         if (number.length > 9) {
           number.substr(number.length-9,9);
           if (number.length > 15) {
-            number = "";
-            return "Error - more than 15 digits";
-          } 
+           return true;
+          } else {
+            return false;
+          }
         } 
-        return number;
       };
+
+    // tooLongNumber function 
+      function tooLongNumber(number) {
+        //do not allow entering more digits (delete the last digit from number)
+        number = number.slice(0, -1);
+        // Infrom the user that he can't eneter more than 15 digits
+        $(alertField).text('Sorry, you can\'t enter more than 15 digits').fadeIn('500');
+        setTimeout(function(){
+          $(alertField).fadeOut('500', function(){
+            $(alertField).text(''); 
+          });
+        }, 4000);
+
+        return number;
+      }
 
     //function checking if a number is a float
       function isFloat(n) { 
@@ -233,6 +260,7 @@ $(document).ready(function(){
         $(totalNum2).text("");
         $(totalOperator).text("");
       }
+
 
   /* ******** MAPPING KEY CODES ********* */
     $(document).keypress(function(event){
@@ -345,10 +373,6 @@ $(document).ready(function(){
         } else if (totalNum2.is(this)) {
           number2 = thisNumber.text();
         }
-
-        console.log('dropped');
-        console.log('number1:', number1);
-        console.log('number2:', number2);
       });
 
 });
