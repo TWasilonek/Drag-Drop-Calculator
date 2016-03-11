@@ -126,18 +126,6 @@ $(document).ready(function(){
           number2 = totalNum2.text();
         } 
       }); 
-    
-    //clear memory button functionality
-      clearMemoryButton.on('click', function(e){
-        $(memoryDisplay).html("");
-      });
-
-    //restore memory button functionality
-      restoreMemoryButton.on('click', function(e){
-        if($(memoryDisplay).html() === "") {
-          $(memoryDisplay).html(currentMemoryState);
-        }
-      });
 
   /* ******** HELPER FUNCTIONS ********* */
     //make operation and return result
@@ -179,7 +167,7 @@ $(document).ready(function(){
         $(totalOperator).text("");
         number2 = "";
         operator = "";
-        lastResult = result;
+        lastResult = result.toString();
       }
 
     //check if assign decimal
@@ -198,7 +186,6 @@ $(document).ready(function(){
         if(testNumLength(number)) {
             number = tooLongNumber(number);
           } 
-        // number = testNumLength(number);
         return number;
       }
 
@@ -310,6 +297,7 @@ $(document).ready(function(){
       //create new div and data
       var newOperation = $(
         '<div class="memory-operation grid-container">' 
+        + '<div class="row"><div class="memory-operation-delete col-12"><button class="delete-button">X</button></span></div>'
         + '<div class="row"><span class="memory-operation-equals col-3">' + '=' + '</span>'
         + '<span class="memory-operation-result draggable col-9" draggable="true">' + result + '</span></div>'
         + '<div class="row"><span class="memory-operation-num draggable col-5" draggable="true">' + number1 + '</span>'
@@ -322,6 +310,23 @@ $(document).ready(function(){
       //make a snapshot of the current memory state
       currentMemoryState = $(memoryDisplay).html();
     }
+
+    //clear memory button functionality
+      clearMemoryButton.on('click', function(e){
+        $(memoryDisplay).html("");
+      });
+
+    //restore memory button functionality
+      restoreMemoryButton.on('click', function(e){
+        if($(memoryDisplay).html() !== currentMemoryState) {
+          $(memoryDisplay).html(currentMemoryState);
+        }
+      });
+      
+    //memory-operation delete button functionality
+    draggablesParent.on('click', '.delete-button', function(e){
+      $(this).closest('.memory-operation').remove();
+    });
 
     /* DRAG AND DROP functionality */
       //Draggable elements functionalities
