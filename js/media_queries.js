@@ -41,7 +41,7 @@ $(document).ready(function(){
 
   function checkWindowSize() {
     var longOperators = [];
-    memoryDisplayOperators = $('.memory-operation').find('.row:nth-child(2) span');
+    memoryDisplayOperators = $('.memory-operation').find('.row:nth-child(3) span');
     if (bigScreen.matches) {
       $(memoryDisplayOperators).each(function(index, element){
         if($(element).text().length > 7){

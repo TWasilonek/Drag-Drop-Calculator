@@ -14,12 +14,14 @@ $(document).ready(function(){
     var operatorsButtons = $('#operatorsTop').find('a');
     var sideOperatorsButtons = $('#side').find('a');
     var bottomOperatorsButtons = $('#operatorsBottom').find('a');
+    var backspaceButton = $('#backspace');
     var clearButton = $('#clear');
     var clearAllButton = $('#clearall');
     var equalsButton = $('#equals');
     var decimalButton = $('#decimal');
     var sqrtButton = $('#sqrt');
     var sqButton = $('#sq');
+    var sq2Button = $('#sq2');
     var multiplyButton = $('#multiply');
     var divideButton = $('#divide');
     var memoryDisplay = $('#displayActive');
@@ -35,57 +37,16 @@ $(document).ready(function(){
 
     //click on numbers
       numbersButtons.add(bottomOperatorsButtons).not('#decimal').on('click', function(e) {
-        //if the previous evaluation ended as a 0, clear it before proceeding
-        if ( ($(totalNum1).text() === "0") && ($(totalOperator).text() === "") ){
-          $(totalNum1).text("");
-          number1 = "";
-        }
-        //assign the entered number to number1 or number2
-        if ($(totalOperator).text() === "") {
-          if( $(totalNum1).text() === lastResult ){
-            //if totalNum1 still holds the last result value, treat this action as if the user wanted to change totalNum1 and not add new characters at the end of it.
-            //in this case first clear number1 and totalNum1
-            $(totalNum1).text("");
-            number1 = "";
-          } 
-          //append the new number to the 'number1' string
-          number1 += $(this).text();
-          //check if number1 is more than 15 characters long and if it is, don't add the new digit to it and inform the user about the problem
-          if(testNumLength(number1)) {
-            number1 = tooLongNumber(number1);
-          } 
-          //display the 'number1' string in the output
-          totalNum1.text(number1);
-        } else {
-          //append the new number to the 'number2' string
-          number2 += $(this).text();
-          //check if number2 is more than 15 characters long and if it is, don't add the new digit to it and inform the user about the problem
-          if(testNumLength(number2)) {
-            number2 = tooLongNumber(number2);
-          } 
-          //display the 'number2' string in the output
-          totalNum2.text(number2);
-        }
+        clickOnNumber(this);
       });
 
     //click on operators
       operatorsButtons.on('click', function(e){
-        var thisBtn = $(this);
-        //change the 'operator' string to the operator text
-        operator = thisBtn.text();
-        $(totalOperator).text(operator);
-        //if the operator is square root, run the click event on "=" as it doesn't need the second number
-        if (thisBtn[0] === sqrtButton[0]) {
-          //go straight to the sqrt evaluation as it doesn't need a second number
+        //if there is already an operator and number2, first run the current operation and add the new opeartor to the result (that's what the user expects)       
+        if ( ($(totalOperator).text() !== "") && ($(totalNum2).text() !== "") ) {
           makeOperation();
-        } else {
-          //display the operator in the 'total' box
-            if(thisBtn[0] === sqButton[0]) {
-              $(totalOperator).text("^");
-            } else {
-               $(totalOperator).text(operator);
-            }
         }
+        clickOnOperator(this); 
       });
 
     //equals button (=) functionality
@@ -104,6 +65,27 @@ $(document).ready(function(){
             });
           });
         }    
+      });
+
+    //backspace button functionality 
+      backspaceButton.on('click', function(e){
+        //first check if the user is in number1 or number2
+        if ($(totalOperator).text() === ""){
+          //User is in number 1 - if the current text is not "0", delete the last digit
+         if ($(totalNum1).text() !== "0") {
+          $(totalNum1).text( $(totalNum1).text().slice(0, -1) );
+          number1 = number1.slice(0, -1);
+          //if you run out of digits to delete, reset number1 to "0"
+          if ( $(totalNum1).text() === "" ){
+            $(totalNum1).text('0');
+            number1 = "0";
+          }
+         }
+        } else {
+          //User is in number 2 - just delete the last digit until there is nothing left to be deleted
+          $(totalNum2).text( $(totalNum2).text().slice(0, -1) );
+          number2 = number2.slice(0, -1);
+        }
       });
 
     //clear button (C) functionality
@@ -128,6 +110,65 @@ $(document).ready(function(){
       }); 
 
   /* ******** HELPER FUNCTIONS ********* */
+    //click on number function
+    function clickOnNumber(clickedNumber) {
+       //if the previous evaluation ended as a 0, clear it before proceeding
+        if ( ($(totalNum1).text() === "0") && ($(totalOperator).text() === "") ){
+          $(totalNum1).text("");
+          number1 = "";
+        }
+        //assign the entered number to number1 or number2
+        if ($(totalOperator).text() === "") {
+          if( $(totalNum1).text() === lastResult ){
+            //if totalNum1 still holds the last result value, treat this action as if the user wanted to change totalNum1 and not add new characters at the end of it.
+            //in this case first clear number1 and totalNum1
+            $(totalNum1).text("");
+            number1 = "";
+          } 
+          //append the new number to the 'number1' string
+          number1 += $(clickedNumber).text();
+          //check if number1 is more than 15 characters long and if it is, don't add the new digit to it and inform the user about the problem
+          if(testNumLength(number1)) {
+            number1 = tooLongNumber(number1);
+          } 
+          //display the 'number1' string in the output
+          totalNum1.text(number1);
+        } else {
+          //append the new number to the 'number2' string
+          number2 += $(clickedNumber).text();
+          //check if number2 is more than 15 characters long and if it is, don't add the new digit to it and inform the user about the problem
+          if(testNumLength(number2)) {
+            number2 = tooLongNumber(number2);
+          } 
+          //display the 'number2' string in the output
+          totalNum2.text(number2);
+        }
+    }
+
+    //click on an opeartor
+      function clickOnOperator(operatorId) {
+        //change the 'operator' string to the operator text
+        operator = $(operatorId).text();
+        $(totalOperator).text(operator);
+        //if the operator is square root, run the click event on "=" as it doesn't need the second number
+        if ($(operatorId).is(sqrtButton)) {
+          //go straight to the sqrt evaluation as it doesn't need a second number
+          makeOperation();
+        } else if ($(operatorId).is(sq2Button)) {
+          $(totalOperator).text("^2");
+          //go straight to the sqrt evaluation as it doesn't need a second number
+          makeOperation();
+        } else {
+          //display the operator in the 'total' box
+          if($(operatorId).is(sqButton)) {
+            $(totalOperator).text("^");
+          } else {
+            $(totalOperator).text(operator);
+          }
+        }
+      }
+      
+
     //make operation and return result
       function makeOperation(){
         var result = 0;
@@ -148,6 +189,8 @@ $(document).ready(function(){
             number2 = number1;
           }
           result = Math.pow(parseFloat(number1, 10), parseFloat(number2, 10));
+        }else if (operator === "a2"){
+          result = parseFloat(number1, 10) * parseFloat(number1, 10);
         }
         if (isFloat(result)) { 
           //round off the result if it has more than 15 characters
@@ -162,12 +205,12 @@ $(document).ready(function(){
         //add the operation to the memory display
         saveAndDisplayOperation(number1, number2, totalOperator.text(), result);  
         //reset variabes
-        number1 = result;
+        lastResult = result.toString();
+        number1 = result.toString();
         $(totalNum2).text("");
         $(totalOperator).text("");
         number2 = "";
         operator = "";
-        lastResult = result.toString();
       }
 
     //check if assign decimal
@@ -212,7 +255,6 @@ $(document).ready(function(){
             $(alertField).text(''); 
           });
         }, 4000);
-
         return number;
       }
 
@@ -288,7 +330,9 @@ $(document).ready(function(){
         } else if (keycode === 47) {
             $("#divide").click();
         } else if (keycode === 46) {
-            $("#decimal").click(); // not working :(
+            $("#decimal").click();
+        } else if (keycode === 8) { //"8" on a Mac works in Firefox and Safari. Does not work on Chrome
+            backspaceButton.click();
         } 
     });
     
