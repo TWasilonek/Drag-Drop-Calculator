@@ -100,10 +100,17 @@ $(document).ready(function(){
 
     //click on decimal button
       decimalButton.on('click', function(e){
+        //check if you are in number 1 or number 2
         if (($(totalNum2).text() === "") && ($(totalOperator).text() === "")) {
+          //run the decimalCheck function and update totalNum1 and number1
           totalNum1.text(decimalCheck(totalNum1.text()));
           number1 = totalNum1.text();
         } else {
+          //UX - if there are no digits and a decimal is hit add a "0" before it
+          if ($(totalNum2).text() === "") {
+            $(totalNum2).text("0");
+          }
+           //run the decimalCheck function and update totalNum2 and number2
           totalNum2.text(decimalCheck(totalNum2.text()));
           number2 = totalNum2.text();
         } 
@@ -293,49 +300,49 @@ $(document).ready(function(){
 
   /* ******** MAPPING KEY CODES ********* */
     $(document).keypress(function(event){
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        console.log(keycode);
-        if (keycode === 49) {
-            $("#one").click();
-        } else if (keycode === 50) {
-            $("#two").click();
-        } else if (keycode === 51) {
-            $("#three").click();
-        } else if (keycode === 52) {
-            $("#four").click();
-        } else if (keycode === 53) {
-            $("#five").click();
-        } else if (keycode === 54) {
-            $("#six").click();
-        } else if (keycode === 55) {
-            $("#seven").click();
-        } else if (keycode === 56) {
-            $("#eight").click();
-        } else if (keycode === 57) {
-            $("#nine").click();
-        } else if (keycode === 48) {
-            $("#zero").click();
-        } else if (keycode === 97) {
-            clearAllButton.click();
-        } else if (keycode === 99) {
-            clearButton.click();
-        } else if (keycode === 61 || keycode === 13) {
-            $("#equals").click();
-        } else if (keycode === 43) {
-            $("#plus").click();
-        } else if (keycode === 45) {
-            $("#minus").click();
-        } else if (keycode === 42 || keycode === 120) {
-            $("#multiply").click();
-        } else if (keycode === 47) {
-            $("#divide").click();
-        } else if (keycode === 46) {
-            $("#decimal").click();
-        } else if (keycode === 8) { //"8" on a Mac works in Firefox and Safari. Does not work on Chrome
-            backspaceButton.click();
-        } 
+      var keycode = (event.keyCode ? event.keyCode : event.which);
+      console.log(keycode);
+      if (keycode === 49) {
+          $("#one").click();
+      } else if (keycode === 50) {
+          $("#two").click();
+      } else if (keycode === 51) {
+          $("#three").click();
+      } else if (keycode === 52) {
+          $("#four").click();
+      } else if (keycode === 53) {
+          $("#five").click();
+      } else if (keycode === 54) {
+          $("#six").click();
+      } else if (keycode === 55) {
+          $("#seven").click();
+      } else if (keycode === 56) {
+          $("#eight").click();
+      } else if (keycode === 57) {
+          $("#nine").click();
+      } else if (keycode === 48) {
+          $("#zero").click();
+      } else if (keycode === 97) {
+          clearAllButton.click();
+      } else if (keycode === 99) {
+          clearButton.click();
+      } else if (keycode === 61 || keycode === 13) {
+          $("#equals").click();
+      } else if (keycode === 43) {
+          $("#plus").click();
+      } else if (keycode === 45) {
+          $("#minus").click();
+      } else if (keycode === 42 || keycode === 120) {
+          $("#multiply").click();
+      } else if (keycode === 47) {
+          $("#divide").click();
+      } else if (keycode === 46) {
+          $("#decimal").click();
+      } else if (keycode === 8) { //"8" on a Mac works in Firefox and Safari. Does not work on Chrome
+          backspaceButton.click();
+      } 
     });
-    
+
   /* ******** DISPLAY IN MEMORY HANDLING ********* */
     function saveAndDisplayOperation (number1, number2, operator, result) {
       //create new div and data

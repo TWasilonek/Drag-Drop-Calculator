@@ -494,6 +494,21 @@ footer {
   display: none;
 }
 
+.special-click {
+  background: #fde3dd;
+  border-width: 2px;
+}
+
+.operators-click {
+  background: #dae9f5;
+  border-width: 2px;
+}
+
+.numbers-click {
+  background: #ededed;
+  border-width: 2px;
+}
+
 /* ------ MEDIA QUERIES ------ */
 @media (max-width: 900px) {
   #total {

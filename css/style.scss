@@ -409,6 +409,21 @@ a#equals {
   display: none;
 }
 
+//active classess for buttons
+.special-click{
+  background: lighten($accentColor, 30%);
+  border-width: 2px;
+}
+
+.operators-click {
+  background: lighten($mainColor, 40%);
+  border-width: 2px;
+}
+
+.numbers-click {
+  background: lighten($textColor, 35%);
+  border-width: 2px;
+}
 
 
 /* ------ MEDIA QUERIES ------ */
