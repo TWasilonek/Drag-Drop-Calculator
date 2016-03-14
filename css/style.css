@@ -199,7 +199,7 @@ nav a:hover, nav a:active {
   height: 420px;
 }
 
-#calculator div {
+#calculator > div {
   display: -webkit-box;
   /* OLD - iOS 6-, Safari 3.1-6, BB7 */
   display: -ms-flexbox;
@@ -277,7 +277,7 @@ nav a:hover, nav a:active {
 }
 
 #operatorsTop a {
-  width: 15%;
+  width: 12.85714%;
   text-align: center;
   height: 35px;
   line-height: 35px;
@@ -396,9 +396,11 @@ a#equals {
   position: relative;
   display: inline-block;
   font-size: 14px;
+  line-height: 18px;
   padding: 5px;
   margin: 2%;
   color: #fff;
+  z-index: 1;
 }
 
 .tooltipText {
@@ -409,44 +411,51 @@ a#equals {
   -webkit-box-shadow: 3px 3px 7px 0 rgba(0, 0, 0, 0.35);
   -moz-box-shadow: 3px 3px 7px 0 rgba(0, 0, 0, 0.35);
   box-shadow: 3px 3px 7px 0 rgba(0, 0, 0, 0.35);
-  z-index: 1;
 }
 
 .tooltip-top-pane {
   background: #3A89C9;
   text-align: center;
-  height: 30px;
-  line-height: 30px;
+  height: 50px;
+  line-height: 50px;
 }
 
 .tooltip-close {
-  float: right;
-  width: 20px;
-  margin-top: 5px;
-  margin-right: 1%;
-  background: #f7f7f7;
+  margin: 5px auto;
+  width: 100px;
+  height: 30px;
+  background: #ededed;
   color: #949494;
-  border: 1px solid #949494;
-  border-radius: 3px;
+  font-weight: 700;
+  border: 2px solid #949494;
+  border-radius: 10px;
 }
 
 .tooltip-close:hover, .tooltip-close:active {
   color: #fff;
   background: #1B325F;
+  border-color: #fff;
 }
 
 .tooltip-text {
-  padding: 3%;
+  padding: 5px;
 }
 
 .arrow-up {
   position: relative;
-  left: 20%;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid #3A89C9;
+}
+
+.tooltip-1 .arrow-up {
+  left: 20%;
+}
+
+.tooltip-2 .arrow-up {
+  left: 80%;
 }
 
 /* Footer */
@@ -511,6 +520,7 @@ footer {
 
 .draggable:hover,
 .draggable-hover {
+  min-height: 20px;
   background: #E9F2F9;
   border: 2px solid #9CC4E4;
   border-radius: 7px;

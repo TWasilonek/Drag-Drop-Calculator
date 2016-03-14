@@ -135,7 +135,7 @@ nav {
     height: 420px;
   }
 
-  #calculator div {
+  #calculator>div {
     @include flexbox;
   }
 
@@ -203,7 +203,7 @@ nav {
 
 #operatorsTop {
   a {
-     width: (90%/6);
+     width: (90%/7);
      @include centerLink(35px); 
      color: $mainColor;
      border-color: $mainColor;
@@ -314,9 +314,11 @@ a#equals {
   position: relative;
   display: inline-block;
   font-size: 14px;
+  line-height: 18px;
   padding: 5px;
   margin: 2%;
   color: $darkBGtextColor;
+  z-index: 1;
 }
 
 .tooltipText{
@@ -325,42 +327,49 @@ a#equals {
     border: 2px solid $mainColor;
     border-radius: 7px;
     @include boxShadow(3px, 3px, 7px, 0, rgba(0,0,0, .35));
-    z-index: 1;
 }
 
 .tooltip-top-pane {
   background: $mainColor;
-  @include centerLink(30px);
+  @include centerLink(50px);
 }
 
 .tooltip-close {
-  float: right;
-  width: 20px;
-  margin-top: 5px;
-  margin-right: 1%;
-  background: #f7f7f7;
-  color: #949494;
-  border: 1px solid #949494;
-  border-radius: 3px;
+  margin: 5px auto;
+  width: 100px;
+  height: 30px;
+  background: lighten($textColor, 35%);
+  color: $textColor;
+  font-weight: 700;
+  border: 2px solid $textColor;
+  border-radius: $displayMemoryBorderRadius;
   &:hover,
   &:active {
     color: $darkBGtextColor;
     background: $darkestColor;
+    border-color: $darkBGtextColor;
   }
 }
 
 .tooltip-text {
-  padding: 3%;
+  padding: 5px;
 }
 
 .arrow-up {
   position: relative;
-  left: 20%;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
   border-bottom: 10px solid $mainColor;
+}
+
+.tooltip-1 .arrow-up {
+  left: 20%;
+}
+
+.tooltip-2 .arrow-up {
+  left: 80%;
 }
 
 /* Footer */
@@ -427,6 +436,7 @@ a#equals {
 //drag drop classes
 .draggable:hover,
 .draggable-hover {
+  min-height: 20px;
   background: $draggableBgColor;
   border: 2px solid $draggableBorderColor;
   border-radius: 7px;

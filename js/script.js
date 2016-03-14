@@ -6,6 +6,7 @@ $(document).ready(function(){
     var currentMemoryState = "";
     var lastResult = "";
     var operationCount = 0;
+    var closeClickCounter = 0;
     var totaldiv = $("#total");
     var totalSpansAll = totaldiv.find('span');
     var totalNum1 = $('.num1');
@@ -39,7 +40,8 @@ $(document).ready(function(){
     var tooltip2Text = tooltip2Container.find('.tooltip-text');
     var tooltip1InnerContainer = tooltip1Container.find('.tooltip-inner-container');
     var tooltip2InnerContainer = tooltip2Container.find('.tooltip-inner-container');
-    var tooltipCloseButton = $('.tooltip-close');
+    var tooltip1CloseButton = tooltip1Container.find('.tooltip-close');
+    var tooltip2CloseButton = tooltip2Container.find('.tooltip-close');
 
     //set the default value of the Total field to 0
       totalNum1.text("0");
@@ -397,14 +399,46 @@ $(document).ready(function(){
     //Tooltips display
     function displayTooltips(){
       var draggables = $('.draggable');
-
+      //if it's the first operation, show tooltip 1 and hightlight the draggable objects
       if (operationCount === 1) {
-        $(tooltip1Container).removeClass('hidden');
         $(tooltip1InnerContainer).addClass('tooltipText');
         $(tooltip1Text).text($(tooltip1Container).data("text"));
-        $(draggables).addClass('draggable-hover');
+        $(tooltip1Container).fadeIn('400');
+
+        $(draggables).each(function(index, element){
+          if($(element).text() !== "") {
+            $(element).addClass('draggable-hover');
+          }
+        });
+      } else if (operationCount === 2 && closeClickCounter === 0){
+        tooltip1CloseButton.click();
+      } else if(operationCount === 3) {
+        tooltip2CloseButton.click();
       }
-    }
+
+       //Tooltips close buttons functionality
+     //if the tooltip close button is clicked, remove the hover effect from draggable objects, hide the tooltip and SHOW TOOLTIP2
+      tooltip1CloseButton.on('click', function(e){
+        closeClickCounter++;
+        $(draggables).removeClass('draggable-hover');
+        $(tooltip1Container).fadeOut('400', function() {
+          //add data to tooltip2
+          $(tooltip2InnerContainer).addClass('tooltipText');
+          $(tooltip2Text).text($(tooltip2Container).data("text"));
+          //show tooltip2 and highlight the operands in the calculator output
+          $(tooltip2Container).fadeIn('400', function() {
+            $(dropzones).addClass('dropzone-revealed');
+            //when the tooltip2 close button is clicked, remove the highlight effect from the operands and hide the tooltip
+            tooltip2CloseButton.on('click', function(e) {
+              closeClickCounter++;
+              $(dropzones).removeClass('dropzone-revealed');
+              $(tooltip2Container).fadeOut('400');
+            });
+          });
+        });
+      });
+    } // displayTooltips() end
+
 
     /* DRAG AND DROP functionality */
       //Draggable elements functionalities
