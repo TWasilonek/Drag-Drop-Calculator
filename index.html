@@ -103,10 +103,24 @@
           </div><!-- grid-container end -->
           <div id="displayActive">
              <!-- Here will appear the saved operations -->
-            <span class="tooltip" data-text="All your operations are saved in the memory display. When you point with your mouse to any of the provious operands and results, it will be hightlighed.">
-            </span>
-            <span class="tooltip" data-text="If you want to reuse any of the prevous elements of an operation, just drag it to one of the highlighted places in the calulator display.">
-            </span>
+
+             <!-- Tooltips - will be revealed only after the first operation is done -->
+            <div class="tooltip tooltip-1" data-text="All your operations are saved in the memory display. When you point with your mouse to any of the provious operands and results, it will be hightlighed.">
+              <div class="arrow-up"></div>
+             <div class="tooltip-inner-container">
+              <div class="tooltip-top-pane"><button class="tooltip-close">X</button></div>
+              <div class="tooltip-text"></div>
+            </div> 
+            </div>
+
+            <div class="tooltip tooltip-2" data-text="If you want to reuse any of the prevous elements of an operation, just drag it to one of the highlighted places in the calulator display.">
+            <div class="arrow-up"></div>
+            <div class="tooltip-inner-container">
+              <div class="tooltip-top-pane"><button class="tooltip-close">X</button></div>
+              <div class="tooltip-text"></div>
+            </div> 
+            </div>
+
           </div>
         </div>
       </section>

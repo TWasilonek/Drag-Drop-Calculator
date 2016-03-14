@@ -392,6 +392,63 @@ a#equals {
   background: #1B325F;
 }
 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px;
+  margin: 2%;
+  color: #fff;
+}
+
+.tooltipText {
+  display: block;
+  background: #3A89C9;
+  border: 2px solid #3A89C9;
+  border-radius: 7px;
+  -webkit-box-shadow: 3px 3px 7px 0 rgba(0, 0, 0, 0.35);
+  -moz-box-shadow: 3px 3px 7px 0 rgba(0, 0, 0, 0.35);
+  box-shadow: 3px 3px 7px 0 rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+.tooltip-top-pane {
+  background: #3A89C9;
+  text-align: center;
+  height: 30px;
+  line-height: 30px;
+}
+
+.tooltip-close {
+  float: right;
+  width: 20px;
+  margin-top: 5px;
+  margin-right: 1%;
+  background: #f7f7f7;
+  color: #949494;
+  border: 1px solid #949494;
+  border-radius: 3px;
+}
+
+.tooltip-close:hover, .tooltip-close:active {
+  color: #fff;
+  background: #1B325F;
+}
+
+.tooltip-text {
+  padding: 3%;
+}
+
+.arrow-up {
+  position: relative;
+  left: 20%;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #3A89C9;
+}
+
 /* Footer */
 footer {
   margin-top: 40px;
@@ -400,10 +457,6 @@ footer {
 }
 
 /* JS helper classes */
-.hidden {
-  display: none;
-}
-
 .active {
   color: #3A89C9;
 }
@@ -456,7 +509,8 @@ footer {
   display: block;
 }
 
-.draggable:hover {
+.draggable:hover,
+.draggable-hover {
   background: #E9F2F9;
   border: 2px solid #9CC4E4;
   border-radius: 7px;
@@ -494,19 +548,8 @@ footer {
   display: none;
 }
 
-.special-click {
-  background: #fde3dd;
-  border-width: 2px;
-}
-
-.operators-click {
-  background: #dae9f5;
-  border-width: 2px;
-}
-
-.numbers-click {
-  background: #ededed;
-  border-width: 2px;
+.hidden {
+  display: none;
 }
 
 /* ------ MEDIA QUERIES ------ */

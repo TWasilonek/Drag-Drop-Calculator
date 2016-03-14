@@ -5,6 +5,7 @@ $(document).ready(function(){
     var operator = "";
     var currentMemoryState = "";
     var lastResult = "";
+    var operationCount = 0;
     var totaldiv = $("#total");
     var totalSpansAll = totaldiv.find('span');
     var totalNum1 = $('.num1');
@@ -31,9 +32,20 @@ $(document).ready(function(){
     var dropzones = $('.dropzone');
     var alertField = $('.alert');
 
+    var tooltipsAll = $('.tooltip');
+    var tooltip1Container = $('.tooltip-1');
+    var tooltip2Container = $('.tooltip-2');
+    var tooltip1Text = tooltip1Container.find('.tooltip-text');
+    var tooltip2Text = tooltip2Container.find('.tooltip-text');
+    var tooltip1InnerContainer = tooltip1Container.find('.tooltip-inner-container');
+    var tooltip2InnerContainer = tooltip2Container.find('.tooltip-inner-container');
+    var tooltipCloseButton = $('.tooltip-close');
+
     //set the default value of the Total field to 0
       totalNum1.text("0");
       number1 = "0";
+    //hide the tooltpis
+    $(tooltipsAll).addClass('hidden');
 
     //click on numbers
       numbersButtons.add(bottomOperatorsButtons).not('#decimal').on('click', function(e) {
@@ -218,6 +230,7 @@ $(document).ready(function(){
         $(totalOperator).text("");
         number2 = "";
         operator = "";
+
       }
 
     //check if assign decimal
@@ -357,9 +370,11 @@ $(document).ready(function(){
         + '</div>'
       ); 
       //add the div to the memory display
-      $(newOperation).appendTo(memoryDisplay); 
+      $(newOperation).prependTo(memoryDisplay); 
       //make a snapshot of the current memory state
       currentMemoryState = $(memoryDisplay).html();
+      operationCount ++; //increase the number of displayed operations
+      displayTooltips();
     }
 
     //clear memory button functionality
@@ -375,9 +390,21 @@ $(document).ready(function(){
       });
       
     //memory-operation delete button functionality
-    draggablesParent.on('click', '.delete-button', function(e){
-      $(this).closest('.memory-operation').remove();
-    });
+      draggablesParent.on('click', '.delete-button', function(e){
+        $(this).closest('.memory-operation').remove();
+      });
+
+    //Tooltips display
+    function displayTooltips(){
+      var draggables = $('.draggable');
+
+      if (operationCount === 1) {
+        $(tooltip1Container).removeClass('hidden');
+        $(tooltip1InnerContainer).addClass('tooltipText');
+        $(tooltip1Text).text($(tooltip1Container).data("text"));
+        $(draggables).addClass('draggable-hover');
+      }
+    }
 
     /* DRAG AND DROP functionality */
       //Draggable elements functionalities

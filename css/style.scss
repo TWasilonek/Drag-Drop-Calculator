@@ -308,6 +308,61 @@ a#equals {
   }
 }
 
+
+//tooltips classes 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  padding: 5px;
+  margin: 2%;
+  color: $darkBGtextColor;
+}
+
+.tooltipText{
+    display: block;
+    background: $mainColor;
+    border: 2px solid $mainColor;
+    border-radius: 7px;
+    @include boxShadow(3px, 3px, 7px, 0, rgba(0,0,0, .35));
+    z-index: 1;
+}
+
+.tooltip-top-pane {
+  background: $mainColor;
+  @include centerLink(30px);
+}
+
+.tooltip-close {
+  float: right;
+  width: 20px;
+  margin-top: 5px;
+  margin-right: 1%;
+  background: #f7f7f7;
+  color: #949494;
+  border: 1px solid #949494;
+  border-radius: 3px;
+  &:hover,
+  &:active {
+    color: $darkBGtextColor;
+    background: $darkestColor;
+  }
+}
+
+.tooltip-text {
+  padding: 3%;
+}
+
+.arrow-up {
+  position: relative;
+  left: 20%;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid $mainColor;
+}
+
 /* Footer */
  footer {
   margin-top: 40px;
@@ -317,10 +372,6 @@ a#equals {
 
 
 /* JS helper classes */
-.hidden {
-  display: none;
-}
-
 .active {
   color: $mainColor;
 }
@@ -374,7 +425,8 @@ a#equals {
 }
 
 //drag drop classes
-.draggable:hover {
+.draggable:hover,
+.draggable-hover {
   background: $draggableBgColor;
   border: 2px solid $draggableBorderColor;
   border-radius: 7px;
@@ -409,23 +461,9 @@ a#equals {
   display: none;
 }
 
-//active classess for buttons
-.special-click{
-  background: lighten($accentColor, 30%);
-  border-width: 2px;
+.hidden {
+  display: none;
 }
-
-.operators-click {
-  background: lighten($mainColor, 40%);
-  border-width: 2px;
-}
-
-.numbers-click {
-  background: lighten($textColor, 35%);
-  border-width: 2px;
-}
-
-
 /* ------ MEDIA QUERIES ------ */
   @media (min-width: 1000px) {
     
