@@ -1,12 +1,14 @@
 $(document).ready(function(){
-  //declare variables
+  /* *********** DECLARE VARIABLES *********** */
+    /* APP VARIABLES */
     var number1 = "";
     var number2 = "";
     var operator = "";
     var currentMemoryState = "";
     var lastResult = "";
-    var operationCount = 0;
+    var operationCounter = 0;
     var closeClickCounter = 0;
+    /* DOM VARIABLES */
     var totaldiv = $("#total");
     var totalSpansAll = totaldiv.find('span');
     var totalNum1 = $('.num1');
@@ -27,12 +29,13 @@ $(document).ready(function(){
     var multiplyButton = $('#multiply');
     var divideButton = $('#divide');
     var memoryDisplay = $('#displayActive');
+    var memoryDisplayOperators = $('.memory-operation').find('row:nth-child(3) span');
     var clearMemoryButton = $('#clear-memory');
     var restoreMemoryButton = $('#restore-memory');
     var draggablesParent = $('#displayActive');
     var dropzones = $('.dropzone');
     var alertField = $('.alert');
-
+    /* TOOLTIPS VARIABLES */
     var tooltipsAll = $('.tooltip');
     var tooltip1Container = $('.tooltip-1');
     var tooltip2Container = $('.tooltip-2');
@@ -42,6 +45,11 @@ $(document).ready(function(){
     var tooltip2InnerContainer = tooltip2Container.find('.tooltip-inner-container');
     var tooltip1CloseButton = tooltip1Container.find('.tooltip-close');
     var tooltip2CloseButton = tooltip2Container.find('.tooltip-close');
+    /* MEDIA QUERIES VARIABLES */
+    // var bigScreen = window.matchMedia("(min-width: 1200px)");
+    var normalScreen = window.matchMedia("(min-width: 769px)");
+    var tabletScreen = window.matchMedia("(max-width: 768px)");
+    var mobileScreen = window.matchMedia("(max-width: 480px)");
 
     //set the default value of the Total field to 0
       totalNum1.text("0");
@@ -131,8 +139,9 @@ $(document).ready(function(){
       }); 
 
   /* ******** HELPER FUNCTIONS ********* */
+
     //click on number function
-    function clickOnNumber(clickedNumber) {
+      function clickOnNumber(clickedNumber) {
        //if the previous evaluation ended as a 0, clear it before proceeding
         if ( ($(totalNum1).text() === "0") && ($(totalOperator).text() === "") ){
           $(totalNum1).text("");
@@ -164,7 +173,7 @@ $(document).ready(function(){
           //display the 'number2' string in the output
           totalNum2.text(number2);
         }
-    }
+      }
 
     //click on an opeartor
       function clickOnOperator(operatorId) {
@@ -189,7 +198,6 @@ $(document).ready(function(){
         }
       }
       
-
     //make operation and return result
       function makeOperation(){
         var result = 0;
@@ -232,7 +240,8 @@ $(document).ready(function(){
         $(totalOperator).text("");
         number2 = "";
         operator = "";
-
+        //check the current window size and adjust method of display in the memory
+        checkWindowSize();
       }
 
     //check if assign decimal
@@ -269,7 +278,7 @@ $(document).ready(function(){
     // tooLongNumber function 
       function tooLongNumber(number) {
         //do not allow entering more digits (delete the last digit from number)
-        number = number.slice(0, -1);
+        number = number.slice(0, 15);
         // Infrom the user that he can't eneter more than 15 digits
         $(alertField).text('Sorry, you can\'t enter more than 15 digits').fadeIn('500');
         setTimeout(function(){
@@ -375,7 +384,7 @@ $(document).ready(function(){
       $(newOperation).prependTo(memoryDisplay); 
       //make a snapshot of the current memory state
       currentMemoryState = $(memoryDisplay).html();
-      operationCount ++; //increase the number of displayed operations
+      operationCounter ++; //increase the number of displayed operations
       displayTooltips();
     }
 
@@ -400,7 +409,7 @@ $(document).ready(function(){
     function displayTooltips(){
       var draggables = $('.draggable');
       //if it's the first operation, show tooltip 1 and hightlight the draggable objects
-      if (operationCount === 1) {
+      if (operationCounter === 1) {
         $(tooltip1InnerContainer).addClass('tooltipText');
         $(tooltip1Text).text($(tooltip1Container).data("text"));
         $(tooltip1Container).fadeIn('400');
@@ -410,9 +419,9 @@ $(document).ready(function(){
             $(element).addClass('draggable-hover');
           }
         });
-      } else if (operationCount === 2 && closeClickCounter === 0){
+      } else if (operationCounter === 2 && closeClickCounter === 0){
         tooltip1CloseButton.click();
-      } else if(operationCount === 3) {
+      } else if (operationCounter === 3) {
         tooltip2CloseButton.click();
       }
 
@@ -461,35 +470,70 @@ $(document).ready(function(){
         dropzones.removeClass('dropzone-revealed');
       });
 
-    //Dropzones functionalities
-      dropzones.on('dragenter', function(e){
-        e.preventDefault();
-        $(this).addClass('dropzone-hover');
+      //Dropzones functionalities
+        dropzones.on('dragenter', function(e){
+          e.preventDefault();
+          $(this).addClass('dropzone-hover');
+        });
+
+        dropzones.on('dragleave', function(e){
+          e.preventDefault();
+          $(this).removeClass('dropzone-hover');
+        });
+
+        //cancel the deaful action of the last events dragenter and dragover - this is NEEDED in order to ALLOW THE DROP EVENT
+        dropzones.on('dragenter', function(e){ e.preventDefault(); }, false);
+        dropzones.on('dragover', function(e){ e.preventDefault(); }, false);
+
+        //call the drop event
+        dropzones.on('drop', function(e){
+          var thisNumber = $(this);
+
+          e.preventDefault();
+          e.dataTransfer = e.originalEvent.dataTransfer;
+          thisNumber.text(e.dataTransfer.getData('text/plain'));
+          thisNumber.removeClass('dropzone-hover');
+
+          if (totalNum1.is(this)) {
+            number1 = thisNumber.text();
+          } else if (totalNum2.is(this)) {
+            number2 = thisNumber.text();
+          }
+        });
+
+  /* *********** MEDIA QUERIES *********** */
+    //check screen size when page loads
+      checkWindowSize();
+
+      //check screen size when the window is being resized
+      $(window).on('resize', function(e){
+        checkWindowSize();  
+        console.log('resized');
       });
 
-      dropzones.on('dragleave', function(e){
-        e.preventDefault();
-        $(this).removeClass('dropzone-hover');
-      });
-
-      //cancel the deaful action of the last events dragenter and dragover - this is NEEDED in order to ALLOW THE DROP EVENT
-      dropzones.on('dragenter', function(e){ e.preventDefault(); }, false);
-      dropzones.on('dragover', function(e){ e.preventDefault(); }, false);
-
-      //call the drop event
-      dropzones.on('drop', function(e){
-        var thisNumber = $(this);
-
-        e.preventDefault();
-        e.dataTransfer = e.originalEvent.dataTransfer;
-        thisNumber.text(e.dataTransfer.getData('text/plain'));
-        thisNumber.removeClass('dropzone-hover');
-
-        if (totalNum1.is(this)) {
-          number1 = thisNumber.text();
-        } else if (totalNum2.is(this)) {
-          number2 = thisNumber.text();
+      function checkWindowSize() {
+        var longOperators = [];
+        memoryDisplayOperators = $('.memory-operation').find('.row:nth-child(3) span');
+        if (normalScreen.matches) {
+          $(memoryDisplayOperators).each(function(index, element){
+            if($(element).text().length > 7){
+              longOperators.push(element);
+              longOperators.push($(element).siblings());
+            }
+            for(i = 0; i < longOperators.length; i++) {
+              $(longOperators[i]).addClass('memory-operation-oneLine');
+            }
+          });   
+        } else if (tabletScreen.matches) {
+           $(memoryDisplayOperators).each(function(index, element){
+            if($(element).text().length > 6){
+              longOperators.push(element);
+              longOperators.push($(element).siblings());
+            }
+            for(i = 0; i < longOperators.length; i++) {
+              $(longOperators[i]).addClass('memory-operation-oneLine');
+            }
+          });   
         }
-      });
-
+      }
 });

@@ -1,5 +1,5 @@
   <!-- Drag and Drop Calculator app
-        version: test 0.1 
+        version: 1.0
         Author: Tomasz Wasilonek  -->
 
 <!DOCTYPE html>
@@ -7,15 +7,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Drag and Drop Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="./css/style.css">
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script type="text/javascript" src="./js/script.js"></script>
-  <script type="text/javascript" src="./js/media_queries.js"></script>
-
-
-  <!-- <script type="text/javascript" src="./js/drag_and_drop_script.js"></script> -->
 </head>
 <body>
 
@@ -25,8 +22,8 @@
       <header class="row">
         <h1>Drag and Drop Calculator</h1>
         <p>
-          Free to use calculator with changable styles <br>
-          and a drag and drop interface to let you easily reuse your previous evaluations.
+          Free to use calculator with a drag and drop interface.<br>
+          All of your operations will be available iside the side memory display so you can access them any time and <strong>REUSE THEM WHENEVER YOU WANT</strong>.
         </p>
       </header>
     </div><!-- grid-container end -->
@@ -58,7 +55,7 @@
             <span class="num2 dropzone"></span>
           </div>
 
-         <article class="tooltip tooltip-2" data-text="If you want to reuse any of the prevous elements of an operation, just drag it to one of the highlighted places in the calulator display.">
+         <article class="tooltip tooltip-2" data-text="If you want to reuse any of the prevous elements of an operation, just drag it to one of the currently available places highlighted in orange in the Calulator Display. JUST REMEMBER: until you click on an operator (x, +, -, etc...) you will have only one place available for drop.">
           <div class="arrow-up"></div>
           <div class="tooltip-inner-container">
             <div class="tooltip-text"></div>
@@ -113,7 +110,7 @@
              <!-- Here will appear the saved operations -->
 
              <!-- Tooltips - will be revealed only after the first operation is done -->
-            <article class="tooltip tooltip-1" data-text="All your operations are saved in the memory display. When you point to any of the provious operands and results, it will be hightlighed.">
+            <article class="tooltip tooltip-1" data-text="All your operations are saved in the memory display. When you hover on any of the provious elements of an operation, it will be hightlighed in blue. This means the element can be dragged to the Calculator Display and reused in another operation.">
               <div class="arrow-up"></div>
               <div class="tooltip-inner-container">
                 <div class="tooltip-text"></div>

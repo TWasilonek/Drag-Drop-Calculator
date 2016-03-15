@@ -188,10 +188,6 @@ nav a {
   color: #949494;
 }
 
-nav a:hover, nav a:active {
-  color: #3A89C9;
-}
-
 /* ***** Calculator ****** */
 /* Positioning */
 #calculator {
@@ -400,7 +396,7 @@ a#equals {
   padding: 5px;
   margin: 2%;
   color: #fff;
-  z-index: 1;
+  z-index: 10;
 }
 
 .tooltipText {
@@ -563,6 +559,11 @@ footer {
 }
 
 /* ------ MEDIA QUERIES ------ */
+@-ms-viewport {
+  width: device-width;
+}
+
+/* Fix for IE8 */
 @media (max-width: 900px) {
   #total {
     font-size: 1.25em;
@@ -585,7 +586,7 @@ footer {
     display: none;
   }
   #calculator {
-    margin-left: 5%;
+    margin: 2%;
   }
   #operatorsBottom {
     font-size: 1em;
@@ -596,8 +597,12 @@ footer {
     flex-flow: row wrap-reverse;
     font-size: 1.25em;
   }
-  #total .operator {
-    order: 1;
+  .memory-display {
+    width: 45%;
+    margin: 0;
+  }
+  #display {
+    width: 100%;
   }
 }
 
@@ -607,11 +612,79 @@ footer {
   #operatorsBottom,
   #numbers {
     margin: 1%;
+    font-size: 0.8em;
   }
-  #operatorsTop a,
-  #side a,
-  #operatorsBottom a,
-  #numbers a {
+  h1 {
+    font-size: 1.8em;
+  }
+  header p {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 490px) {
+  #total {
+    margin-bottom: 20px;
+    font-size: 1em;
+    /* 16px */
+  }
+  .memory-display {
+    height: 415px;
+    margin-top: 20px;
+    padding: 0;
+  }
+  #display {
+    height: 415px;
+  }
+  #operatorsTop,
+  #side,
+  #operatorsBottom,
+  #numbers {
+    margin: 0;
+    font-size: 0.6em;
+  }
+  #side {
+    width: 25%;
+  }
+  #calculator a {
     border-radius: 0;
+    margin: 0;
+  }
+  #operatorsTop a {
+    width: 14.28571%;
+  }
+  #operatorsTop a:first-child {
+    border-top-left-radius: 10px;
+  }
+  #operatorsTop a:last-child {
+    border-top-right-radius: 10px;
+  }
+  #side a {
+    width: 100%;
+  }
+  #operatorsBottom a {
+    width: 25%;
+  }
+  #operatorsBottom a:first-child {
+    border-bottom-left-radius: 10px;
+  }
+  #numbers a {
+    width: 33.33333%;
+    height: 75px;
+  }
+  a#equals {
+    text-align: center;
+    height: 134px;
+    line-height: 134px;
+    border-bottom-right-radius: 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  #total,
+  .memory-operation {
+    font-size: 0.8em;
+    /* 14px */
+    padding: 1%;
   }
 }
