@@ -9,7 +9,7 @@ The current version is labelled "1.0" and features:
   * A fully working calculator performing basic mathematical operations;
   * A Memory Display that allows interaction with the memorized operations:
     * Selecting elements of previous operations;
-    * Drag and drop actions to reuse those elements in the current opeartion (I'm using the standard HTML5 Drag and Drop API);
+    * Drag and drop actions to reuse those elements in the current operation (I'm using the standard HTML5 Drag and Drop API);
     * Deleting an operation from the Memory Display;
     * Deleting all operations at once from the Memory Display;
     * Restoring all cleared operations;
