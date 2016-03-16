@@ -1,0 +1,306 @@
+/* ------ MINIMAL STYLE ------ */
+body {
+  font-family: 'Lato', sans-serif;
+  font-size: 1em;
+  color: $textColor;
+}
+
+/* Header */
+.max-width {
+  width: 100%;
+  margin-bottom: 20px;
+  @include boxShadow(0px, 10px, 5px, -5px, rgba(0,0,0,0.3));
+}
+
+h1, p {
+  margin: 0 auto;
+  text-align: center;
+}
+
+h1 {
+  margin: 20px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.5em; /* 40px */
+  font-weight: 500;
+  color: $mainColor;
+  text-transform: uppercase;  
+  letter-spacing: 0.05em;
+  
+}
+
+p {
+  font-size: 1.125em; /* 18px */
+  margin-bottom: 20px;
+}
+
+/* Navigation */
+nav { 
+  ul {
+    font-size: 1.25em; /* 20px */ 
+    text-transform: lowercase;
+  }
+  li {
+    margin-bottom: 15px;
+  }
+  a {
+    text-decoration: none;
+    color: $textColor;
+    // &:hover,
+    // &:active {
+    //   color: $mainColor;
+    // }
+  }
+}
+
+
+/* ***** Calculator ****** */
+
+/* Positioning */
+  #calculator {
+    margin: 0 auto;
+    height: 420px;
+  }
+
+  #calculator>div {
+    @include flexbox;
+  }
+
+  #total {
+    margin: 0 auto;
+    justify-content: flex-end;
+  }
+
+  #operatorsTop,
+  #operatorsBottom {
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  #operatorsTop {
+    margin-bottom: 5px;
+  }
+
+  #side {
+    width: 20%;
+    float: right;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 10px;
+    margin-left: 2%;
+    a {
+      margin-bottom: 13px;
+    }
+  }
+
+  #numbers {
+    justify-content: space-between;
+    flex-flow: row wrap;
+    width: 75%;
+    height: 224px;
+    a {
+      margin: 2% 1.5%; //vertical % margin does not work on Firefox when the content is part of a flexbox without a specified height.
+    }
+  }
+
+/* content styling */
+#calculator a {
+  display: inline-block;
+  font-size: 1.5em; /* 24px */
+  border: 1px solid $textColor;
+  cursor: pointer;
+}
+
+#total {
+  width: 100%;
+  height: 45px;
+  line-height: 45px;
+  background: $inputBgColor;
+  color: $mainColor; 
+  font-size: 1.375em; /* 22px */
+  padding: 0 10px;
+  border: 1px solid $textColor;
+  border-radius: 10px;
+}
+
+.square a {
+  border-radius: 7px;
+}
+
+#operatorsTop {
+  a {
+     width: (90%/7);
+     @include centerLink(35px); 
+     color: $mainColor;
+     border-color: $mainColor;
+     &:hover,
+     &:active{
+        background: lighten($mainColor, 40%);
+        border-width: 2px;
+    }
+    & sup {
+      font-size: 0.7em;
+      position: relative;
+      bottom: 0.5em;
+    }
+  }
+}
+
+#operatorsBottom a {
+  width: (80%/4);
+  @include centerLink(45px);
+}
+
+#side a {
+  width: 100%;
+  @include centerLink(45px);
+  color: $mainColor;
+  border-color: $mainColor;
+  &:hover,
+  &:active{
+    background: lighten($mainColor, 40%);
+    border-width: 2px;
+  }    
+}
+
+#side a.special {
+  color: $accentColor;
+  border-color: $accentColor;
+  &:hover,
+  &:active {
+    background: lighten($accentColor, 30%);
+    border-width: 2px;
+  }
+}
+
+a#equals {
+  @include centerLink(100px);
+  }
+
+#operatorsBottom a {
+  &:hover,
+  &:active{
+    background: lighten($textColor, 35%);
+    border-width: 2px;
+  }
+}
+
+#numbers a {
+  width: 30%;
+  @include centerLink(60px);
+  border-radius: 7px;
+  &:nth-of-type(3n + 1) {
+    margin-left: 0;
+  }
+  &:hover,
+  &:active{
+    background: lighten($textColor, 35%);
+    border-width: 2px;
+  }
+}
+
+/* Memory display */
+#display {
+  float: right;
+  background: $inputBgColor;
+  color: $textColor;
+  border: 1px solid $textColor;
+  border-radius: $displayMemoryBorderRadius;
+}
+
+#displayActive {
+  padding: 5% 0;
+  height: 420px;
+  overflow: auto;
+}
+
+.display-memory-button {
+  height: 20px;
+  padding: 0;
+  background: $mainColor;
+  color: $darkBGtextColor;
+  border: none;
+  border-bottom: 1px solid $darkestColor;
+  &:first-child {
+    border-right: 1px solid $darkestColor;
+    border-radius: $displayMemoryBorderRadius 0 0 0; 
+  }
+  &:last-child {
+    border-radius: 0 $displayMemoryBorderRadius 0 0; 
+  }
+  &:hover,
+  &:active {
+    background: $darkestColor;
+  }
+}
+
+
+//tooltips classes 
+.tooltip {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 5px;
+  margin: 2%;
+  color: $darkBGtextColor;
+  z-index: 10;
+}
+
+.tooltipText{
+    display: block;
+    background: $mainColor;
+    border: 2px solid $mainColor;
+    border-radius: 7px;
+    @include boxShadow(3px, 3px, 7px, 0, rgba(0,0,0, .35));
+}
+
+.tooltip-top-pane {
+  background: $mainColor;
+  @include centerLink(50px);
+}
+
+.tooltip-close {
+  margin: 5px auto;
+  width: 100px;
+  height: 30px;
+  background: lighten($textColor, 35%);
+  color: $textColor;
+  font-weight: 700;
+  border: 2px solid $textColor;
+  border-radius: $displayMemoryBorderRadius;
+  &:hover,
+  &:active {
+    color: $darkBGtextColor;
+    background: $darkestColor;
+    border-color: $darkBGtextColor;
+  }
+}
+
+.tooltip-text {
+  padding: 5px;
+}
+
+.arrow-up {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid $mainColor;
+}
+
+.tooltip-1 .arrow-up {
+  left: 20%;
+}
+
+.tooltip-2 .arrow-up {
+  left: 80%;
+}
+
+/* Footer */
+ footer {
+  margin-top: 40px;
+  font-size: 0.8em;
+  border-top: 1px solid $textColor;
+ }

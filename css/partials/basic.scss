@@ -1,0 +1,38 @@
+/* ------ Global------ */
+* {
+  box-sizing: border-box;
+}
+
+/* ------ GRID ------ */
+.grid-container {
+   width: 100%;
+   max-width: 1200px;
+   margin: 0 auto;
+}
+
+.row:before,
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+//creates 12 column classes with the width computed (columnWidth * columnNumber)
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: $columnWidth * $i;
+  }
+}
+
+[class*='col-']{
+  float: left;
+  min-height:1px;
+  padding: 10px;
+}
+
+
+/* ------ BASIC LAYOUT ------- */
+#display {
+  width: 80%;
+  height: 445px;
+}

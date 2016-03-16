@@ -1,0 +1,124 @@
+/* ------ MEDIA QUERIES ------ */
+
+  @-ms-viewport {width: device-width;} /* Fix for IE8 */
+
+  @media (max-width: 900px) {
+    #total {
+      font-size: 1.25em /* 20px; */
+    }
+    .memory-operation {
+      font-size: 0.875em; /* 14px */
+    }
+  }
+
+  @media (max-width: 820px) {
+    #total {
+      font-size: 1.125em; /* 18px */
+    } 
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      display: none;
+    }
+    #calculator {
+      margin: 2%;
+    }
+    #operatorsBottom {
+      font-size: 1em; /* 18px */
+    }
+    #total {
+      height: 90px;
+      flex-flow: row wrap-reverse;
+      font-size: 1.25em /* 20px */;
+    }
+    .memory-display {
+      width: 45%;
+      margin: 0;
+    }
+    #display {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 615px) {
+    #operatorsTop,
+    #side,
+    #operatorsBottom,
+    #numbers {
+      margin: 1%;
+      font-size: 0.8em;
+    }
+    h1 {
+      font-size: 1.8em;
+    }
+    header p {
+      font-size: 1em;
+    }
+  }
+  
+  @media (max-width: 490px) {
+    #total {
+      margin-bottom: 20px;
+      font-size: 1em; /* 16px */
+    }
+
+    .memory-display {
+      height: 415px;
+      margin-top: 20px;
+      padding: 0;
+    }
+
+    #display {
+      height: 415px;
+    }
+
+    #operatorsTop,
+    #side,
+    #operatorsBottom,
+    #numbers {
+      margin: 0;
+      font-size: 0.6em;
+    }
+    #side {
+      width: 25%;
+    }
+    #calculator a {
+      border-radius: 0;
+      margin: 0;
+    }
+    #operatorsTop a {
+      width: (100%/7);
+      &:first-child{
+        border-top-left-radius: $displayMemoryBorderRadius;
+      }
+      &:last-child{
+        border-top-right-radius: $displayMemoryBorderRadius;
+      }
+    }
+    #side a {
+      width: 100%;
+    }
+    #operatorsBottom a {
+      width: (100%/4);
+      &:first-child{
+        border-bottom-left-radius: $displayMemoryBorderRadius;
+      }
+    }
+    #numbers a {
+      width: (100%/3);
+      height: 75px;
+    }
+    a#equals {
+      @include centerLink(134px);
+      border-bottom-right-radius: $displayMemoryBorderRadius;
+    }
+  }
+
+  @media (max-width: 400px) {
+    #total,
+    .memory-operation {
+      font-size: 0.8em; /* 14px */
+      padding: 1%;
+    }
+  }

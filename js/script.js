@@ -46,16 +46,16 @@ $(document).ready(function(){
     var tooltip1CloseButton = tooltip1Container.find('.tooltip-close');
     var tooltip2CloseButton = tooltip2Container.find('.tooltip-close');
     /* MEDIA QUERIES VARIABLES */
-    // var bigScreen = window.matchMedia("(min-width: 1200px)");
     var normalScreen = window.matchMedia("(min-width: 769px)");
     var tabletScreen = window.matchMedia("(max-width: 768px)");
-    var mobileScreen = window.matchMedia("(max-width: 480px)");
 
+  /* *********** CALCULATOR MAIN LOGIC *********** */  
     //set the default value of the Total field to 0
       totalNum1.text("0");
       number1 = "0";
+
     //hide the tooltpis
-    $(tooltipsAll).addClass('hidden');
+      $(tooltipsAll).addClass('hidden');
 
     //click on numbers
       numbersButtons.add(bottomOperatorsButtons).not('#decimal').on('click', function(e) {
@@ -321,11 +321,10 @@ $(document).ready(function(){
         $(totalOperator).text("");
       }
 
-
   /* ******** MAPPING KEY CODES ********* */
     $(document).keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
-      console.log(keycode);
+
       if (keycode === 49) {
           $("#one").click();
       } else if (keycode === 50) {
@@ -424,9 +423,9 @@ $(document).ready(function(){
       } else if (operationCounter === 3) {
         tooltip2CloseButton.click();
       }
-
-       //Tooltips close buttons functionality
-     //if the tooltip close button is clicked, remove the hover effect from draggable objects, hide the tooltip and SHOW TOOLTIP2
+   
+       // Tooltips close buttons functionality 
+      //if the tooltip close button is clicked, remove the hover effect from draggable objects, hide the tooltip and SHOW TOOLTIP2
       tooltip1CloseButton.on('click', function(e){
         closeClickCounter++;
         $(draggables).removeClass('draggable-hover');
@@ -446,29 +445,29 @@ $(document).ready(function(){
           });
         });
       });
-    } // displayTooltips() end
+    } // displayTooltips() function end
 
 
     /* DRAG AND DROP functionality */
       //Draggable elements functionalities
-      draggablesParent.on('dragstart', '.draggable', function(e){
-        // Take the text from the current element
-        var value = $(this).text();
-        e.dataTransfer = e.originalEvent.dataTransfer;
-        e.dataTransfer.setData('text/plain', value);
+        draggablesParent.on('dragstart', '.draggable', function(e){
+          // Take the text from the current element
+          var value = $(this).text();
+          e.dataTransfer = e.originalEvent.dataTransfer;
+          e.dataTransfer.setData('text/plain', value);
 
-        // Highlight the possible dropzones
-        if ($(totalOperator).text() === "") {
-          $(totalNum1).addClass('dropzone-revealed');
-        } else {
-          $(dropzones).addClass('dropzone-revealed');
-        }
-      });
+          // Highlight the possible dropzones
+          if ($(totalOperator).text() === "") {
+            $(totalNum1).addClass('dropzone-revealed');
+          } else {
+            $(dropzones).addClass('dropzone-revealed');
+          }
+        });
 
       // When the drag action is over, remove the highlight effect from possible dropzones
-      draggablesParent.on('dragend', '.draggable', function(e) {
-        dropzones.removeClass('dropzone-revealed');
-      });
+        draggablesParent.on('dragend', '.draggable', function(e) {
+          dropzones.removeClass('dropzone-revealed');
+        });
 
       //Dropzones functionalities
         dropzones.on('dragenter', function(e){
@@ -508,11 +507,11 @@ $(document).ready(function(){
       //check screen size when the window is being resized
       $(window).on('resize', function(e){
         checkWindowSize();  
-        console.log('resized');
       });
 
       function checkWindowSize() {
         var longOperators = [];
+
         memoryDisplayOperators = $('.memory-operation').find('.row:nth-child(3) span');
         if (normalScreen.matches) {
           $(memoryDisplayOperators).each(function(index, element){
