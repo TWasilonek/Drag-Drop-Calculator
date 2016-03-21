@@ -1,7 +1,6 @@
 # Drag and Drop Calculator
 ===========================
-In order to open the project, download all the files to your computer and open "index.html" in your browser. 
-Or you can simply [click this link](http://twasilonek.github.io/DragDropCalculator/) to open the project on github pages.
+In order to open the project use this link: http://twasilonek.github.io/DragDropCalculator/ .
 
 ## About
 The Drag and Drop Calculator is a project I did for the final workshop at the Front-End Web Developer Bootcamp in Coder's Lab school in Warsaw. The ida was to create a normal calculator that has a memory display and allows reusing all elements from previous operations with a simple drag-and-drop action. Additionally I wanted to create 4 different graphic styles that can be used interchangeably without affecting how the calculator works.
