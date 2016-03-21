@@ -6,7 +6,7 @@ Or you can simply [click this link](http://twasilonek.github.io/DragDropCalculat
 ## About
 The Drag and Drop Calculator is a project I did for the final workshop at the Front-End Web Developer Bootcamp in Coder's Lab school in Warsaw. The ida was to create a normal calculator that has a memory display and allows reusing all elements from previous operations with a simple drag-and-drop action. Additionally I wanted to create 4 different graphic styles that can be used interchangeably without affecting how the calculator works.
 
-![Drag and Drop Calculator minimal design](https://github.com/TWasilonek/DragDropCalculator/tree/master/Drag and Drop Calculator-minimal design.png)
+![Drag and Drop Calculator minimal design](https://github.com/TWasilonek/DragDropCalculator/tree/master/Drag_and_Drop_Calculator-minimal_design.png)
 
 ## The current working version:
 The current version is labelled "1.0" and features:
